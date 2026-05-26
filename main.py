@@ -6,6 +6,7 @@ from openai import OpenAI
 import json
 import os
 import re
+import threading
 import requests as req_lib
 from contextlib import asynccontextmanager
 
@@ -68,7 +69,7 @@ def sync_products_from_woo():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Load from disk cache first (fast), sync if empty or missing
+    # Load from disk cache first (instant), then sync in background thread
     PRODUCTS_FILE = os.path.join(os.path.dirname(__file__), "products.json")
     global products
     try:
@@ -78,11 +79,11 @@ async def lifespan(app: FastAPI):
             products = cached
             print(f"Loaded {len(products)} products from disk cache")
         else:
-            print("products.json is empty — syncing from WooCommerce")
-            sync_products_from_woo()
+            print("products.json is empty — starting background sync")
+            threading.Thread(target=sync_products_from_woo, daemon=True).start()
     except FileNotFoundError:
-        print("No products.json — syncing from WooCommerce")
-        sync_products_from_woo()
+        print("No products.json — starting background sync")
+        threading.Thread(target=sync_products_from_woo, daemon=True).start()
 
     yield
 
