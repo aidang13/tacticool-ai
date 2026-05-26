@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, BackgroundTasks
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel
@@ -68,15 +68,20 @@ def sync_products_from_woo():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Load from disk cache first (fast), then sync in background
+    # Load from disk cache first (fast), sync if empty or missing
     PRODUCTS_FILE = os.path.join(os.path.dirname(__file__), "products.json")
     global products
     try:
         with open(PRODUCTS_FILE) as f:
-            products = json.load(f)
-        print(f"Loaded {len(products)} products from disk cache")
+            cached = json.load(f)
+        if cached:
+            products = cached
+            print(f"Loaded {len(products)} products from disk cache")
+        else:
+            print("products.json is empty — syncing from WooCommerce")
+            sync_products_from_woo()
     except FileNotFoundError:
-        print("No products.json — will sync from WooCommerce")
+        print("No products.json — syncing from WooCommerce")
         sync_products_from_woo()
 
     yield
@@ -212,10 +217,10 @@ async def chat(req: ChatRequest):
 
 
 @app.post("/api/sync")
-async def sync_catalog(background_tasks: BackgroundTasks):
-    """Trigger a product catalog sync from WooCommerce."""
-    background_tasks.add_task(sync_products_from_woo)
-    return {"status": "sync started", "current_products": len(products)}
+def sync_catalog():
+    """Trigger a synchronous product catalog sync from WooCommerce."""
+    sync_products_from_woo()
+    return {"status": "sync complete", "products_loaded": len(products)}
 
 
 @app.get("/health")
