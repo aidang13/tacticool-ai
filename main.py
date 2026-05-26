@@ -3,93 +3,84 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel
 from openai import OpenAI
-import json
 import os
 import re
-import threading
+import time
 import requests as req_lib
-from contextlib import asynccontextmanager
 
-# ── WooCommerce sync ─────────────────────────────────────────────────────────
+# ── WooCommerce config ────────────────────────────────────────────────────────
 WOO_URL = os.environ.get("WOO_URL", "")
 WOO_KEY = os.environ.get("WOO_CONSUMER_KEY", "")
 WOO_SECRET = os.environ.get("WOO_CONSUMER_SECRET", "")
 
-products = []  # in-memory catalog
+# Simple in-memory search cache (query → (timestamp, results))
+_search_cache: dict = {}
+CACHE_TTL = 300  # 5 minutes
+
+STOPWORDS = {
+    "a", "an", "the", "is", "it", "in", "on", "for", "to", "and", "or",
+    "what", "which", "best", "good", "do", "you", "have", "i", "my", "me",
+    "need", "want", "looking", "find", "get", "got", "some", "any", "with",
+    "this", "that", "can", "how", "are", "use", "using", "would", "could",
+}
 
 
-def sync_products_from_woo():
-    """Pull in-stock products from WooCommerce and update the in-memory catalog."""
-    global products
+def search_woo_products(query: str, max_results: int = 6) -> list:
+    """Search WooCommerce live using the API search parameter."""
     if not (WOO_URL and WOO_KEY and WOO_SECRET):
-        print("WooCommerce credentials not set — skipping sync")
-        return
+        return []
 
-    print("Starting WooCommerce catalog sync...")
-    all_products = []
-    page = 1
-    per_page = 100
+    # Extract meaningful search terms
+    words = re.findall(r'\w+', query.lower())
+    terms = [w for w in words if w not in STOPWORDS and len(w) >= 3][:4]
+    if not terms:
+        return []
 
-    while True:
-        try:
-            r = req_lib.get(
-                f"{WOO_URL}/wp-json/wc/v3/products",
-                auth=(WOO_KEY, WOO_SECRET),
-                params={"per_page": per_page, "page": page, "stock_status": "instock"},
-                timeout=30,
-            )
-            r.raise_for_status()
-            batch = r.json()
-        except Exception as e:
-            print(f"WooCommerce sync error on page {page}: {e}")
-            break
+    search_query = " ".join(terms)
 
-        if not batch:
-            break
+    # Check cache
+    cached = _search_cache.get(search_query)
+    if cached and (time.time() - cached[0]) < CACHE_TTL:
+        return cached[1]
 
-        all_products.extend(batch)
-        print(f"  Fetched page {page} — {len(all_products)} products so far")
-
-        if len(batch) < per_page:
-            break
-        page += 1
-
-    products = all_products
-    print(f"Sync complete — {len(products)} in-stock products loaded")
-
-    # Also save to disk for persistence across hot reloads
     try:
-        PRODUCTS_FILE = os.path.join(os.path.dirname(__file__), "products.json")
-        with open(PRODUCTS_FILE, "w") as f:
-            json.dump(products, f)
-        print("Saved products.json")
+        r = req_lib.get(
+            f"{WOO_URL}/wp-json/wc/v3/products",
+            auth=(WOO_KEY, WOO_SECRET),
+            params={
+                "search": search_query,
+                "per_page": max_results,
+                "stock_status": "instock",
+                "status": "publish",
+            },
+            timeout=10,
+        )
+        r.raise_for_status()
+        results = r.json()
     except Exception as e:
-        print(f"Could not save products.json: {e}")
+        print(f"WooCommerce search error for '{search_query}': {e}")
+        return []
+
+    _search_cache[search_query] = (time.time(), results)
+    return results
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Load from disk cache first (instant), then sync in background thread
-    PRODUCTS_FILE = os.path.join(os.path.dirname(__file__), "products.json")
-    global products
-    try:
-        with open(PRODUCTS_FILE) as f:
-            cached = json.load(f)
-        if cached:
-            products = cached
-            print(f"Loaded {len(products)} products from disk cache")
-        else:
-            print("products.json is empty — starting background sync")
-            threading.Thread(target=sync_products_from_woo, daemon=True).start()
-    except FileNotFoundError:
-        print("No products.json — starting background sync")
-        threading.Thread(target=sync_products_from_woo, daemon=True).start()
-
-    yield
+def format_product_context(products: list) -> str:
+    if not products:
+        return ""
+    lines = ["\n\nRELEVANT PRODUCTS FROM OUR CATALOG:"]
+    for p in products:
+        price = p.get("price", "")
+        name = p.get("name", "Unknown")
+        url = p.get("permalink", "")
+        short_desc = re.sub(r'<[^>]+>', '', p.get("short_description", "")).strip()
+        stock = "In Stock" if p.get("stock_status") == "instock" else "Out of Stock"
+        lines.append(f"• {name} — ${price} ({stock})\n  {short_desc}\n  Link: {url}")
+    return "\n".join(lines)
 
 
-# ── App setup ────────────────────────────────────────────────────────────────
-app = FastAPI(lifespan=lifespan)
+# ── App setup ─────────────────────────────────────────────────────────────────
+app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
@@ -99,7 +90,6 @@ app.add_middleware(
 )
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
-
 
 SYSTEM_PROMPT = """You are Bam Bam, the Tacti-Cool cave man — a knowledgeable and enthusiastic assistant for Tacti-Cool Gun, a firearm accessories and gear retailer.
 
@@ -120,67 +110,6 @@ Rules:
 """
 
 
-def find_relevant_products(query: str, max_results: int = 6) -> list:
-    """Simple keyword-based product search — fast, no embeddings needed."""
-    if not products:
-        return []
-
-    query_lower = query.lower()
-    query_words = set(re.findall(r'\w+', query_lower))
-    stopwords = {"a", "an", "the", "is", "it", "in", "on", "for", "to", "and", "or", "what", "which", "best", "good"}
-    query_words -= stopwords
-
-    scored = []
-    for p in products:
-        score = 0
-        name = p.get("name", "").lower()
-        desc = (p.get("short_description", "") + " " + p.get("description", "")).lower()
-        cats = " ".join(c.get("name", "") for c in p.get("categories", [])).lower()
-        tags = " ".join(t.get("name", "") for t in p.get("tags", [])).lower()
-        attrs = " ".join(
-            " ".join(str(v) for v in a.get("options", []))
-            for a in p.get("attributes", [])
-        ).lower()
-
-        for word in query_words:
-            if len(word) < 3:
-                continue
-            if word in name:
-                score += 5
-            if word in cats:
-                score += 3
-            if word in tags:
-                score += 2
-            if word in attrs:
-                score += 2
-            if word in desc:
-                score += 1
-
-        if p.get("stock_status") == "instock":
-            score += 1
-
-        if score > 0:
-            scored.append((score, p))
-
-    scored.sort(key=lambda x: x[0], reverse=True)
-    return [p for _, p in scored[:max_results]]
-
-
-def format_product_context(relevant_products: list) -> str:
-    if not relevant_products:
-        return ""
-    lines = ["\n\nRELEVANT PRODUCTS FROM OUR CATALOG:"]
-    for p in relevant_products:
-        price = p.get("price", "")
-        name = p.get("name", "Unknown")
-        url = p.get("permalink", "")
-        short_desc = p.get("short_description", "")
-        stock = "In Stock" if p.get("stock_status") == "instock" else "Out of Stock"
-        short_desc = re.sub(r'<[^>]+>', '', short_desc).strip()
-        lines.append(f"• {name} — ${price} ({stock})\n  {short_desc}\n  Link: {url}")
-    return "\n".join(lines)
-
-
 class ChatRequest(BaseModel):
     message: str
     history: list = []
@@ -192,7 +121,7 @@ class ChatResponse(BaseModel):
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest):
-    relevant = find_relevant_products(req.message)
+    relevant = search_woo_products(req.message)
     product_context = format_product_context(relevant)
 
     system = SYSTEM_PROMPT + product_context
@@ -217,16 +146,10 @@ async def chat(req: ChatRequest):
     return ChatResponse(reply=reply)
 
 
-@app.post("/api/sync")
-def sync_catalog():
-    """Trigger a synchronous product catalog sync from WooCommerce."""
-    sync_products_from_woo()
-    return {"status": "sync complete", "products_loaded": len(products)}
-
-
 @app.get("/health")
 async def health():
-    return {"status": "ok", "products_loaded": len(products)}
+    woo_ok = bool(WOO_URL and WOO_KEY and WOO_SECRET)
+    return {"status": "ok", "woo_configured": woo_ok, "cache_entries": len(_search_cache)}
 
 
 WIDGET_JS = r"""
