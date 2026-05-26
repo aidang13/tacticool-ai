@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel
@@ -6,8 +6,84 @@ from openai import OpenAI
 import json
 import os
 import re
+import requests as req_lib
+from contextlib import asynccontextmanager
 
-app = FastAPI()
+# ── WooCommerce sync ─────────────────────────────────────────────────────────
+WOO_URL = os.environ.get("WOO_URL", "")
+WOO_KEY = os.environ.get("WOO_CONSUMER_KEY", "")
+WOO_SECRET = os.environ.get("WOO_CONSUMER_SECRET", "")
+
+products = []  # in-memory catalog
+
+
+def sync_products_from_woo():
+    """Pull in-stock products from WooCommerce and update the in-memory catalog."""
+    global products
+    if not (WOO_URL and WOO_KEY and WOO_SECRET):
+        print("WooCommerce credentials not set — skipping sync")
+        return
+
+    print("Starting WooCommerce catalog sync...")
+    all_products = []
+    page = 1
+    per_page = 100
+
+    while True:
+        try:
+            r = req_lib.get(
+                f"{WOO_URL}/wp-json/wc/v3/products",
+                auth=(WOO_KEY, WOO_SECRET),
+                params={"per_page": per_page, "page": page, "stock_status": "instock"},
+                timeout=30,
+            )
+            r.raise_for_status()
+            batch = r.json()
+        except Exception as e:
+            print(f"WooCommerce sync error on page {page}: {e}")
+            break
+
+        if not batch:
+            break
+
+        all_products.extend(batch)
+        print(f"  Fetched page {page} — {len(all_products)} products so far")
+
+        if len(batch) < per_page:
+            break
+        page += 1
+
+    products = all_products
+    print(f"Sync complete — {len(products)} in-stock products loaded")
+
+    # Also save to disk for persistence across hot reloads
+    try:
+        PRODUCTS_FILE = os.path.join(os.path.dirname(__file__), "products.json")
+        with open(PRODUCTS_FILE, "w") as f:
+            json.dump(products, f)
+        print("Saved products.json")
+    except Exception as e:
+        print(f"Could not save products.json: {e}")
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Load from disk cache first (fast), then sync in background
+    PRODUCTS_FILE = os.path.join(os.path.dirname(__file__), "products.json")
+    global products
+    try:
+        with open(PRODUCTS_FILE) as f:
+            products = json.load(f)
+        print(f"Loaded {len(products)} products from disk cache")
+    except FileNotFoundError:
+        print("No products.json — will sync from WooCommerce")
+        sync_products_from_woo()
+
+    yield
+
+
+# ── App setup ────────────────────────────────────────────────────────────────
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,18 +94,8 @@ app.add_middleware(
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
-# Load product catalog
-PRODUCTS_FILE = os.path.join(os.path.dirname(__file__), "products.json")
-try:
-    with open(PRODUCTS_FILE) as f:
-        products = json.load(f)
-    print(f"Loaded {len(products)} products")
-except FileNotFoundError:
-    products = []
-    print("No products.json found — catalog is empty")
 
-
-SYSTEM_PROMPT = """You are a knowledgeable and friendly assistant for Tacti-Cool Gun, a firearm accessories and gear retailer.
+SYSTEM_PROMPT = """You are Bam Bam, the Tacti-Cool cave man — a knowledgeable and enthusiastic assistant for Tacti-Cool Gun, a firearm accessories and gear retailer.
 
 Your job is to help customers:
 - Find the right products for their needs (holsters, optics, ammo, magazines, accessories, etc.)
@@ -37,7 +103,7 @@ Your job is to help customers:
 - Explain policies (shipping, FFL transfers, returns)
 - Recommend products based on their specific gun, use case, or budget
 
-Tone: Direct, knowledgeable, no-nonsense but approachable — like talking to an expert at a gun counter.
+Tone: Direct, knowledgeable, no-nonsense but fun and approachable — like talking to an expert cave man at a gun counter. You can occasionally drop a cave man-ish phrase or two (keep it subtle and fun, not overdone).
 
 Rules:
 - Always recommend specific products from the catalog when relevant, including their price and URL
@@ -84,7 +150,6 @@ def find_relevant_products(query: str, max_results: int = 6) -> list:
             if word in desc:
                 score += 1
 
-        # Boost in-stock items
         if p.get("stock_status") == "instock":
             score += 1
 
@@ -105,7 +170,6 @@ def format_product_context(relevant_products: list) -> str:
         url = p.get("permalink", "")
         short_desc = p.get("short_description", "")
         stock = "In Stock" if p.get("stock_status") == "instock" else "Out of Stock"
-        # Strip HTML tags from short description
         short_desc = re.sub(r'<[^>]+>', '', short_desc).strip()
         lines.append(f"• {name} — ${price} ({stock})\n  {short_desc}\n  Link: {url}")
     return "\n".join(lines)
@@ -113,7 +177,7 @@ def format_product_context(relevant_products: list) -> str:
 
 class ChatRequest(BaseModel):
     message: str
-    history: list = []  # list of {"role": "user"/"assistant", "content": "..."}
+    history: list = []
 
 
 class ChatResponse(BaseModel):
@@ -128,7 +192,6 @@ async def chat(req: ChatRequest):
     system = SYSTEM_PROMPT + product_context
 
     messages = [{"role": "system", "content": system}]
-    # Include last 10 turns of history
     for turn in req.history[-10:]:
         if turn.get("role") in ("user", "assistant") and turn.get("content"):
             messages.append({"role": turn["role"], "content": turn["content"]})
@@ -146,6 +209,13 @@ async def chat(req: ChatRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
     return ChatResponse(reply=reply)
+
+
+@app.post("/api/sync")
+async def sync_catalog(background_tasks: BackgroundTasks):
+    """Trigger a product catalog sync from WooCommerce."""
+    background_tasks.add_task(sync_products_from_woo)
+    return {"status": "sync started", "current_products": len(products)}
 
 
 @app.get("/health")
@@ -189,7 +259,7 @@ WIDGET_JS = r"""
   var w=document.createElement("div");w.id="tcw";document.body.appendChild(w);
   var p=document.createElement("div");p.id="tcp";w.appendChild(p);
   var h=document.createElement("div");h.id="tch";
-  h.innerHTML="<span>⚡ Tacti-Cool</span><span id='tcx'>✕</span>";
+  h.innerHTML="<span>&#129460; Talk to Bam Bam</span><span id='tcx'>&#x2715;</span>";
   p.appendChild(h);
   var m=document.createElement("div");m.id="tcm";p.appendChild(m);
   var r=document.createElement("div");r.id="tcr";p.appendChild(r);
@@ -197,7 +267,7 @@ WIDGET_JS = r"""
   inp.placeholder="Ask about guns, gear, ammo...";inp.maxLength=400;r.appendChild(inp);
   var snd=document.createElement("button");snd.id="tcs";snd.textContent="Send";r.appendChild(snd);
   var f=document.createElement("div");f.id="tcf";f.textContent="Powered by AI";p.appendChild(f);
-  var b=document.createElement("div");b.id="tcb";b.title="Chat with Tacti-Cool";
+  var b=document.createElement("div");b.id="tcb";b.title="Talk to Bam Bam";
   b.innerHTML="<svg viewBox='0 0 24 24'><path d='M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z'/></svg>";
   w.appendChild(b);
   function addMsg(txt,role){
@@ -226,7 +296,7 @@ WIDGET_JS = r"""
   function toggle(){
     isOpen=!isOpen;p.classList.toggle("on",isOpen);
     if(isOpen&&m.children.length===0){
-      addMsg("Hey! I'm your Tacti-Cool assistant. Ask me about holsters, optics, ammo, or any gear.","b");
+      addMsg("Ugh! Bam Bam here — your Tacti-Cool cave man. Ask me about holsters, optics, ammo, or any gear!","b");
       setTimeout(function(){inp.focus();},200);
     }
   }
