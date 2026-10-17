@@ -234,9 +234,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media (max-width:420px){.row2{grid-template-columns:1fr}}
 .file input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;clip:rect(0 0 0 0)}
-.filebtn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;margin:0;text-transform:none;letter-spacing:0;font-family:var(--body);font-weight:500;font-size:1rem;color:var(--tag-ink)}
+.field > .filebtn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;margin:0;text-transform:none;letter-spacing:0;font-family:var(--body);font-weight:500;font-size:1rem;color:var(--tag-ink)}
 .filebtn .b{background:var(--label);color:var(--label-ink);font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.03em;padding:7px 12px;border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.35)}
-.filebtn .c{font-size:.9rem;color:var(--tag-ink-2)}
+.field > .filebtn .c{font-family:var(--body);font-weight:400;font-size:.9rem;letter-spacing:0;text-transform:none;color:var(--tag-ink-2)}
 .file input:focus-visible + .filebtn .b{outline:2px solid var(--brass-2);outline-offset:2px}
 .send{
   width:100%;margin-top:6px;
@@ -301,7 +301,7 @@ section.s{padding-top:80px;padding-bottom:80px;padding-left:var(--pad);padding-r
 .strip small{display:block;font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--label-ink-2);letter-spacing:0;margin-top:2px}
 
 /* pairings */
-.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:28px 20px;margin-top:32px}
+.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:28px 20px;margin-top:32px}
 .pair{
   background:transparent;border:0;padding:0;
   text-align:left;cursor:pointer;color:var(--ink);
