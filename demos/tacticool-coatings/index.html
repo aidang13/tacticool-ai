@@ -95,14 +95,15 @@ button,input,select,textarea{font:inherit;color:inherit}
 .hero{padding:clamp(24px,4vh,44px) var(--pad) clamp(32px,6vh,72px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(320px,.8fr);gap:clamp(24px,3.5vw,56px);align-items:start}
 .hero-left{min-width:0}
 .hero-head{margin-bottom:clamp(18px,3vh,28px)}
-.hero h1{font-size:clamp(2.6rem,5.4vw,4.8rem);max-width:13ch}
-.hero .sub{font-size:clamp(1rem,1.3vw,1.15rem);color:var(--ink-2);margin:.5em 0 0;max-width:62ch}
+.hero h1{font-size:clamp(2.4rem,4.1vw,3.7rem);max-width:none}
+.hero .sub{font-size:clamp(1rem,1.25vw,1.12rem);color:var(--ink-2);margin:.45em 0 0;max-width:none}
 .hero .sub b{color:var(--ink);font-weight:600}
 @media (max-width:980px){.hero{grid-template-columns:1fr}}
 
 /* deck */
 .deck{min-width:0}
 .tabs{display:flex;flex-wrap:wrap;gap:4px;padding:0 6px;position:relative;z-index:1}
+@media (max-width:760px){.tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.tabs::-webkit-scrollbar{display:none}.tab{white-space:nowrap;flex:none}}
 .tab{
   font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.02em;text-transform:uppercase;
   background:var(--mat-2);color:var(--ink-2);border:1px solid var(--rule-2);border-bottom:0;
@@ -170,31 +171,34 @@ button,input,select,textarea{font:inherit;color:inherit}
 .deck-empty{grid-column:1/-1;align-self:center;text-align:center;color:var(--ink-2);padding:40px 12px}
 
 /* hang tag */
-.tag-wrap{position:sticky;top:64px}
+.tag-wrap{position:sticky;top:64px;padding-top:34px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5)) drop-shadow(0 18px 28px rgba(0,0,0,.5))}
+.tag-wrap::before{ /* string, runs from the top into the eyelet */
+  content:"";position:absolute;top:0;left:50%;width:2px;height:54px;margin-left:-1px;
+  background:linear-gradient(#d8d5cb,#8f8c83);
+}
 .tag{
   position:relative;
   background:var(--tag);
   color:var(--tag-ink);
   border-radius:10px 10px 6px 6px;
-  padding:30px 20px 18px;
-  box-shadow:0 2px 3px rgba(0,0,0,.5),0 18px 34px rgba(0,0,0,.5);
+  padding:34px 20px 18px;
   clip-path:polygon(0 18px,18px 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%);
+  -webkit-mask:radial-gradient(circle at 50% 19px,transparent 5.5px,#000 6px);
+  mask:radial-gradient(circle at 50% 19px,transparent 5.5px,#000 6px);
 }
-.tag::before{ /* brass eyelet */
-  content:"";position:absolute;top:10px;left:50%;width:18px;height:18px;margin-left:-9px;border-radius:50%;
-  background:radial-gradient(circle at 40% 35%,#e8cf8a 0 2px,var(--brass) 3px 5px,var(--brass-2) 6px 7px,transparent 7.5px),var(--mat);
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,.4);
-}
-.tag::after{ /* string */
-  content:"";position:absolute;top:-36px;left:50%;width:2px;height:36px;margin-left:-1px;
-  background:linear-gradient(#c9c6bc,#8f8c83);
+.tag::before{ /* brass eyelet rim around the punched hole */
+  content:"";position:absolute;top:9px;left:50%;width:20px;height:20px;margin-left:-10px;border-radius:50%;
+  border:4px solid var(--brass);
+  box-shadow:inset 0 0 0 1px var(--brass-2),0 0 0 1px var(--brass-2),0 1px 1px rgba(0,0,0,.35);
 }
 .tag h2{font-size:2rem;margin:0 0 4px;color:var(--tag-ink)}
+@media (max-width:980px){.tag-wrap{filter:drop-shadow(0 2px 3px rgba(0,0,0,.5)) drop-shadow(0 12px 22px rgba(0,0,0,.5))}}
 .tag .lede{font-size:.95rem;color:var(--tag-ink-2);margin:0 0 14px}
 .field{border:0;padding:0;margin:0 0 10px;min-width:0}
 .field legend,.field > label,.lab{
   display:block;font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;color:var(--tag-ink-2);margin:0 0 4px;padding:0;
 }
+.field select{appearance:none;-webkit-appearance:none;padding-right:34px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%232a2416' stroke-width='2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
 .field select,.field input[type="text"],.field input[type="tel"],.field input[type="email"],.field textarea{
   width:100%;background:rgba(255,255,255,.55);border:1px solid var(--tag-2);border-bottom-color:var(--brass-2);
   border-radius:3px;padding:9px 10px;color:var(--tag-ink);
@@ -204,7 +208,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 .field input::placeholder,.field textarea::placeholder{color:#6a5c3d}
 .checks{display:grid;gap:4px}
 .checks label{display:flex;align-items:center;gap:8px;font-weight:500;font-size:.98rem;text-transform:none;letter-spacing:0;font-family:var(--body);color:var(--tag-ink);cursor:pointer}
-.checks input{width:17px;height:17px;accent-color:var(--brass-2);margin:0}
+.checks input{appearance:none;-webkit-appearance:none;width:18px;height:18px;margin:0;border:1.5px solid var(--brass-2);border-radius:3px;background:rgba(255,255,255,.55);display:grid;place-content:center;cursor:pointer;flex:none}
+.checks input::before{content:"";width:10px;height:10px;background:var(--label-ink);clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0,43% 62%);transform:scale(0);transition:transform .2s var(--ease)}
+.checks input:checked{background:#fff}
+.checks input:checked::before{transform:scale(1)}
+.checks input:focus-visible{outline:2px solid var(--brass-2);outline-offset:2px}
 .slots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .slotbtn{
   display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;
@@ -220,12 +228,16 @@ button,input,select,textarea{font:inherit;color:inherit}
 }
 .slotbtn.filled .sw{border:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
 .slotbtn .t{display:block;font-family:var(--display);font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--tag-ink-2);line-height:1.1}
-.slotbtn .v{display:block;font-weight:600;font-size:.95rem;line-height:1.15;color:var(--tag-ink);overflow-wrap:anywhere}
+.slotbtn .v{display:block;font-weight:600;font-size:.95rem;line-height:1.15;color:var(--tag-ink);overflow-wrap:anywhere;transition:opacity .45s var(--ease)}
+.slotbtn .v.fade{opacity:0;transition:none}
 .slotbtn .v small{display:block;font-weight:400;color:var(--tag-ink-2);font-size:.8rem}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media (max-width:420px){.row2{grid-template-columns:1fr}}
-.file{font-size:.9rem;color:var(--tag-ink)}
-.file input{display:block;width:100%;font-size:.85rem}
+.file input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;clip:rect(0 0 0 0)}
+.filebtn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;margin:0;text-transform:none;letter-spacing:0;font-family:var(--body);font-weight:500;font-size:1rem;color:var(--tag-ink)}
+.filebtn .b{background:var(--label);color:var(--label-ink);font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.03em;padding:7px 12px;border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.35)}
+.filebtn .c{font-size:.9rem;color:var(--tag-ink-2)}
+.file input:focus-visible + .filebtn .b{outline:2px solid var(--brass-2);outline-offset:2px}
 .send{
   width:100%;margin-top:6px;
   background:var(--label-ink);color:var(--label);border:0;border-radius:5px;
@@ -264,8 +276,9 @@ section.s{padding-top:80px;padding-bottom:80px;padding-left:var(--pad);padding-r
 /* services: the back of the chip */
 .spec{width:100%;border-collapse:collapse;margin-top:28px;font-size:1rem}
 .spec th,.spec td{text-align:left;vertical-align:top;padding:16px 18px 16px 0;border-top:1px solid var(--rule-2)}
-.spec thead th{border-top:0;padding-top:0;font-family:var(--display);font-weight:800;font-size:1.9rem;line-height:1;letter-spacing:.01em}
-.spec thead th small{display:block;font-family:var(--body);font-weight:500;font-size:.9rem;color:var(--ink-2);margin-top:6px;letter-spacing:0}
+.spec thead th{border-top:0;padding-top:0;vertical-align:bottom}
+.spec thead th .hd{display:inline-block;background:var(--label);color:var(--label-ink);border-radius:4px;padding:7px 12px 8px;font-family:var(--display);font-weight:800;font-size:1.7rem;line-height:1;letter-spacing:.01em;box-shadow:0 1px 2px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.3)}
+.spec thead th small{display:block;font-family:var(--body);font-weight:500;font-size:.9rem;color:var(--ink-2);margin-top:10px;letter-spacing:0}
 .spec tbody th{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);width:11ch;padding-right:12px}
 .spec td{color:var(--ink);max-width:34ch}
 .spec td p{margin:0}
@@ -288,28 +301,36 @@ section.s{padding-top:80px;padding-bottom:80px;padding-left:var(--pad);padding-r
 .strip small{display:block;font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--label-ink-2);letter-spacing:0;margin-top:2px}
 
 /* pairings */
-.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:28px}
+.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:28px 20px;margin-top:32px}
 .pair{
-  display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center;
-  background:transparent;border:1px solid var(--rule-2);border-radius:8px;padding:12px;
+  background:transparent;border:0;padding:0;
   text-align:left;cursor:pointer;color:var(--ink);
-  transition:border-color .2s,transform .3s var(--ease);
+  display:block;
 }
-.pair:hover{border-color:var(--ink-3);transform:translateY(-2px)}
-.pair .two{
-  width:72px;height:96px;border-radius:6px;overflow:hidden;position:relative;
-  background:linear-gradient(135deg,var(--a) 0 58%,var(--b) 58% 100%);
+.pair .two{display:block;position:relative;width:132px;height:118px;margin:0 0 10px}
+.pair .two i{
+  position:absolute;width:76px;height:104px;border-radius:var(--radius-chip);
   box-shadow:0 1px 2px rgba(0,0,0,.5),0 6px 14px rgba(0,0,0,.35);
   -webkit-mask:radial-gradient(circle at 11px 11px,transparent 4px,#000 4.6px);mask:radial-gradient(circle at 11px 11px,transparent 4px,#000 4.6px);
+  transition:transform .35s var(--ease);
 }
-.pair .two::before{content:"";position:absolute;inset:0;background:linear-gradient(118deg,rgba(255,255,255,.2),rgba(255,255,255,0) 45%,rgba(0,0,0,.14))}
-.pair .on{display:block;font-family:var(--display);font-weight:700;font-size:1.15rem;line-height:1.05}
-.pair .codes{display:block;font-size:.85rem;color:var(--ink-2);font-variant-numeric:tabular-nums;margin-top:4px}
-.pair .codes b{color:var(--ink);font-weight:600}
+.pair .two i::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(118deg,rgba(255,255,255,.22),rgba(255,255,255,.06) 32%,rgba(0,0,0,0) 48%,rgba(0,0,0,.16))}
+.pair .two .cb{left:0;top:14px;background:var(--b);transform:rotate(-6deg)}
+.pair .two .ca{left:50px;top:0;background:var(--a);transform:rotate(5deg);z-index:1}
+.pair .two .light{box-shadow:inset 0 0 0 1px rgba(0,0,0,.18),0 1px 2px rgba(0,0,0,.5),0 6px 14px rgba(0,0,0,.35)}
+.pair:hover .two .ca{transform:rotate(5deg) translateY(-4px)}
+.pair:hover .two .cb{transform:rotate(-6deg) translateY(-2px)}
+.pair .lbl{display:inline-block;background:var(--label);color:var(--label-ink);border-radius:4px;padding:6px 10px 7px;box-shadow:0 1px 2px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.3);max-width:100%}
+.pair .on{display:block;font-family:var(--display);font-weight:700;font-size:1.1rem;line-height:1.05}
+.pair .codes{display:block;font-size:.8rem;color:var(--label-ink-2);font-variant-numeric:tabular-nums;margin-top:3px}
+.pair .codes b{color:var(--label-ink);font-weight:600}
+.pair:focus-visible{outline:2px solid var(--focus);outline-offset:4px;border-radius:6px}
 .stamp{
-  display:inline-block;margin-left:12px;vertical-align:middle;
-  font-family:var(--display);font-weight:800;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--err);border:2px solid var(--err);padding:3px 7px 2px;border-radius:3px;transform:rotate(-4deg);
+  display:inline-block;margin-left:14px;vertical-align:middle;
+  background:var(--label);color:var(--label-ink);
+  font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.02em;
+  padding:6px 10px 7px;border-radius:4px;
+  box-shadow:0 1px 2px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.3);
 }
 
 /* steps */
@@ -317,16 +338,23 @@ section.s{padding-top:80px;padding-bottom:80px;padding-left:var(--pad);padding-r
 .steps li{padding:24px;position:relative;border-top:1px solid var(--rule-2)}
 .steps li + li{border-left:1px solid var(--rule-2)}
 @media (max-width:760px){.steps{grid-template-columns:1fr;margin-left:-16px;margin-right:-16px}.steps li{padding:22px 16px}.steps li + li{border-left:0}}
-.steps .n{font-family:var(--display);font-weight:800;font-size:2.6rem;line-height:1;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.steps .n{position:relative;display:flex;flex-direction:column;justify-content:flex-end;width:46px;height:64px;border-radius:5px;background:var(--c);box-shadow:0 1px 2px rgba(0,0,0,.5),0 6px 14px rgba(0,0,0,.35);-webkit-mask:radial-gradient(circle at 9px 9px,transparent 3.2px,#000 3.8px);mask:radial-gradient(circle at 9px 9px,transparent 3.2px,#000 3.8px);overflow:hidden}
+.steps .n::before{content:"";position:absolute;inset:0;background:linear-gradient(118deg,rgba(255,255,255,.22),rgba(255,255,255,.06) 32%,rgba(0,0,0,0) 48%,rgba(0,0,0,.16))}
+.steps .n span{position:relative;background:var(--label);color:var(--label-ink);font-family:var(--display);font-weight:800;font-size:1.1rem;line-height:1;padding:4px 6px 5px;font-variant-numeric:tabular-nums}
 .steps h3{margin:8px 0 6px}
 .steps p{color:var(--ink-2);margin:0;font-size:.98rem}
 
 /* sister + find us */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);align-items:start}
 @media (max-width:760px){.split{grid-template-columns:1fr}}
-.find dl{margin:20px 0 0;display:grid;grid-template-columns:auto 1fr;gap:8px 18px}
-.find dt{font-family:var(--display);font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);font-size:.95rem;padding-top:3px}
+.minitag-wrap{margin-top:24px;padding-top:26px;position:relative;max-width:420px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5)) drop-shadow(0 12px 22px rgba(0,0,0,.45))}
+.minitag-wrap::before{content:"";position:absolute;top:0;left:34px;width:2px;height:44px;background:linear-gradient(#d8d5cb,#8f8c83)}
+.minitag{position:relative;background:var(--tag);color:var(--tag-ink);border-radius:8px 8px 5px 5px;padding:30px 18px 16px;clip-path:polygon(0 14px,14px 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);-webkit-mask:radial-gradient(circle at 35px 17px,transparent 5px,#000 5.5px);mask:radial-gradient(circle at 35px 17px,transparent 5px,#000 5.5px)}
+.minitag::before{content:"";position:absolute;top:8px;left:26px;width:18px;height:18px;border-radius:50%;border:4px solid var(--brass);box-shadow:inset 0 0 0 1px var(--brass-2),0 0 0 1px var(--brass-2)}
+.find dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px}
+.find dt{font-family:var(--display);font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--tag-ink-2);font-size:.95rem;padding-top:3px}
 .find dd{margin:0}
+.find .ph{color:var(--tag-ink)}
 .sister{border:1px solid var(--rule-2);border-radius:8px;padding:22px 24px}
 .sister h3{font-size:1.9rem}
 .sister p{color:var(--ink-2)}
@@ -356,7 +384,7 @@ footer p{max-width:80ch;margin:0}
   <div class="hero-left">
   <div class="hero-head">
     <h1>Pick the finish. We'll quote the job.</h1>
-    <p class="sub"><b>Tacti-Cool Coatings</b> is a Cerakote certified applicator in the Chickasha, Oklahoma area. Cerakote, powder coat, and laser engraving on firearms, knives, optics, and parts. Tap a chip to start your quote tag.</p>
+    <p class="sub"><b>Tacti-Cool Coatings</b>, Cerakote certified applicator, Chickasha, Oklahoma. Cerakote, powder coat, laser engraving. Tap a chip to start your tag.</p>
   </div>
 
   <div class="deck" id="finishes">
@@ -418,8 +446,9 @@ footer p{max-width:80ch;margin:0}
       </div>
 
       <div class="field file">
-        <label for="photos">Photos of the item</label>
-        <input id="photos" name="photos" type="file" accept="image/*" multiple>
+        <span class="lab" id="photos-lab">Photos of the item</span>
+        <input id="photos" name="photos" type="file" accept="image/*" multiple aria-labelledby="photos-lab">
+        <label class="filebtn" for="photos"><span class="b">Add photos</span><span class="c" id="photos-c">None added</span></label>
       </div>
 
       <div class="row2">
@@ -449,14 +478,14 @@ footer p{max-width:80ch;margin:0}
 <section class="s" id="services">
   <div class="in">
     <h2>Three ways to finish it</h2>
-    <p class="lede">One shop, three processes. Most firearm work is Cerakote. Big or heavy parts lean powder coat. Engraving goes on before or after either.</p>
+    <p class="lede">One shop, three processes. Pick by the part: thin-film Cerakote where fit matters, powder coat where a thicker shell is fine, engraving on top of either.</p>
     <table class="spec">
       <thead>
         <tr>
           <th scope="col"><span class="vh">Property</span></th>
-          <th scope="col">Cerakote<small>Ceramic thin-film coating, oven cured</small></th>
-          <th scope="col">Powder coat<small>Electrostatic powder, baked to a shell</small></th>
-          <th scope="col">Laser engraving<small>Marks cut into the surface</small></th>
+          <th scope="col"><span class="hd">Cerakote</span><small>Ceramic thin-film coating, oven cured</small></th>
+          <th scope="col"><span class="hd">Powder coat</span><small>Electrostatic powder, baked to a shell</small></th>
+          <th scope="col"><span class="hd">Laser engraving</span><small>Marks cut into the surface</small></th>
         </tr>
       </thead>
       <tbody>
@@ -486,7 +515,7 @@ footer p{max-width:80ch;margin:0}
 <section class="s" id="items">
   <div class="in">
     <h2>What we hang on the rack</h2>
-    <p class="lede">Firearms are most of the work. They are not all of it. If it is metal or polymer and fits in the oven, ask.</p>
+    <p class="lede">Firearm parts and hard goods alike. If it is metal or polymer and fits in the oven, ask.</p>
     <div class="strips">
       <span class="strip">Pistol slides<small>full or two-tone</small></span>
       <span class="strip">Frames and receivers<small>polymer and aluminum</small></span>
@@ -504,8 +533,8 @@ footer p{max-width:80ch;margin:0}
 
 <section class="s" id="pairings">
   <div class="in">
-    <h2>Two-tone pairings that work <span class="stamp">Sample pairings</span></h2>
-    <p class="lede">Not customer jobs. These are combinations the shop reaches for; tap one to drop both chips onto your tag.</p>
+    <h2>Two-tone pairings that work <span class="stamp">Shop samples, not customer jobs</span></h2>
+    <p class="lede">Not customer jobs: sample combinations that show how two chips read together. Tap one to drop both onto your tag.</p>
     <div class="pairs" id="pairs"></div>
   </div>
 </section>
@@ -514,10 +543,10 @@ footer p{max-width:80ch;margin:0}
   <div class="in">
     <h2>How a job goes</h2>
     <ol class="steps">
-      <li><span class="n">1</span><h3>Send the tag</h3><p>Item, finish, photos. We reply with a price and a turnaround for that job, not a chart.</p></li>
-      <li><span class="n">2</span><h3>Bring it in</h3><p>Drop the item at the shop. Ask us about shipping before you send anything.</p></li>
-      <li><span class="n">3</span><h3>Strip, blast, mask, coat, cure</h3><p>Every part comes apart, gets blasted clean, masked where it mates, coated, and baked.</p></li>
-      <li><span class="n">4</span><h3>Pick it up</h3><p>Reassembled and function checked. We call when it is on the shelf.</p></li>
+      <li><span class="n" style="--c:#5d6062"><span>1</span></span><h3>Send the tag</h3><p>Item, finish, photos. We reply with a price and a turnaround for that job, not a chart.</p></li>
+      <li><span class="n" style="--c:#6b7271"><span>2</span></span><h3>Bring it in</h3><p>Drop the item at the shop. Ask us about shipping before you send anything.</p></li>
+      <li><span class="n" style="--c:#7d6b4e"><span>3</span></span><h3>Strip, blast, mask, coat, cure</h3><p>Every part comes apart, gets blasted clean, masked where it mates, coated, and baked.</p></li>
+      <li><span class="n" style="--c:#202124"><span>4</span></span><h3>Pick it up</h3><p>Reassembled. We call when it is ready.</p></li>
     </ol>
   </div>
 </section>
@@ -527,12 +556,14 @@ footer p{max-width:80ch;margin:0}
     <div class="find">
       <h2>Find us</h2>
       <p class="lede">A separate shop from the gun store, run by the same crew.</p>
+      <div class="minitag-wrap"><div class="minitag">
       <dl>
         <dt>Address</dt><dd><span class="ph">Street address, City, OK ZIP</span></dd>
         <dt>Hours</dt><dd><span class="ph">Days and hours</span></dd>
         <dt>Phone</dt><dd><span class="ph">Shop phone</span></dd>
         <dt>Email</dt><dd><span class="ph">Shop email</span></dd>
       </dl>
+      </div></div>
     </div>
     <div class="sister">
       <h3>Need the gun store?</h3>
@@ -660,8 +691,10 @@ footer p{max-width:80ch;margin:0}
   }
   function setSlot(el,code,empty){
     var v=el.querySelector(".v");
-    if(code){var c=byCode[code];el.classList.add("filled");el.style.setProperty("--c",c[2]);v.innerHTML=c[0]+"<small>"+c[1]+"</small>";}
-    else{el.classList.remove("filled");el.style.removeProperty("--c");v.textContent=empty;}
+    var next=code?byCode[code][0]+"<small>"+byCode[code][1]+"</small>":empty;
+    if(v.innerHTML!==next){v.classList.add("fade");v.innerHTML=next;requestAnimationFrame(function(){requestAnimationFrame(function(){v.classList.remove("fade")})});}
+    if(code){el.classList.add("filled");el.style.setProperty("--c",byCode[code][2]);}
+    else{el.classList.remove("filled");el.style.removeProperty("--c");}
   }
   function pick(code){
     if(state.active==="finish"){
@@ -675,6 +708,7 @@ footer p{max-width:80ch;margin:0}
     paint();
     var m=document.getElementById("msg");if(m.classList.contains("err")&&state.finish){m.className="msg";m.textContent="";}
   }
+  document.getElementById("photos").addEventListener("change",function(){var n=this.files.length;document.getElementById("photos-c").textContent=n?n+(n===1?" photo added":" photos added"):"None added";});
   document.getElementById("slot-finish").addEventListener("click",function(){state.active="finish";paint()});
   document.getElementById("slot-accent").addEventListener("click",function(){state.active="accent";paint()});
 
@@ -682,7 +716,7 @@ footer p{max-width:80ch;margin:0}
     var a=byCode[p[1]],b=byCode[p[2]];
     var el=document.createElement("button");el.type="button";el.className="pair";
     el.style.setProperty("--a",a[2]);el.style.setProperty("--b",b[2]);
-    el.innerHTML='<span class="two" aria-hidden="true"></span><span><span class="on">'+p[0]+'</span><span class="codes"><b>'+a[0]+'</b> '+a[1]+' over <b>'+b[0]+'</b> '+b[1]+'</span></span>';
+    el.innerHTML='<span class="two" aria-hidden="true"><i class="cb'+(b[4]==="light"?" light":"")+'"></i><i class="ca'+(a[4]==="light"?" light":"")+'"></i></span><span class="lbl"><span class="on">'+p[0]+'</span><span class="codes"><b>'+a[0]+'</b> '+a[1]+' over <b>'+b[0]+'</b> '+b[1]+'</span></span>';
     el.setAttribute("aria-label",p[0]+": "+a[0]+" "+a[1]+" with "+b[0]+" "+b[1]+". Put both on the quote tag.");
     el.addEventListener("click",function(){state.finish=a[0];state.accent=b[0];state.active="accent";state.fam="all";renderTabs();renderWall();document.getElementById("quote").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})});
     pairs.appendChild(el);
