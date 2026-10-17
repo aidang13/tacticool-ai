@@ -1,0 +1,588 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-17T00:00:00Z",
+  "title": "Design System: Tacti-Cool Coatings",
+  "extensions": {
+    "colorMeta": {
+      "mat": {
+        "role": "neutral",
+        "displayName": "Mat",
+        "canonical": "#1b1c1e",
+        "tonalRamp": [
+          "oklch(15.0% 0.004 264.5)",
+          "oklch(26.4% 0.004 264.5)",
+          "oklch(37.9% 0.004 264.5)",
+          "oklch(49.3% 0.004 264.5)",
+          "oklch(60.7% 0.004 264.5)",
+          "oklch(72.1% 0.004 264.5)",
+          "oklch(83.6% 0.004 264.5)",
+          "oklch(95.0% 0.004 264.5)"
+        ]
+      },
+      "mat-2": {
+        "role": "neutral",
+        "displayName": "Mat Raised",
+        "canonical": "#232426",
+        "tonalRamp": [
+          "oklch(15.0% 0.004 264.5)",
+          "oklch(26.4% 0.004 264.5)",
+          "oklch(37.9% 0.004 264.5)",
+          "oklch(49.3% 0.004 264.5)",
+          "oklch(60.7% 0.004 264.5)",
+          "oklch(72.1% 0.004 264.5)",
+          "oklch(83.6% 0.004 264.5)",
+          "oklch(95.0% 0.004 264.5)"
+        ]
+      },
+      "mat-tread": {
+        "role": "neutral",
+        "displayName": "Tread",
+        "canonical": "rgba(255,255,255,0.035)",
+        "tonalRamp": [
+          "oklch(15.0% 0 0)",
+          "oklch(26.4% 0 0)",
+          "oklch(37.9% 0 0)",
+          "oklch(49.3% 0 0)",
+          "oklch(60.7% 0 0)",
+          "oklch(72.1% 0 0)",
+          "oklch(83.6% 0 0)",
+          "oklch(95.0% 0 0)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#ebe8e1",
+        "tonalRamp": [
+          "oklch(15.0% 0.010 87.5)",
+          "oklch(26.4% 0.010 87.5)",
+          "oklch(37.9% 0.010 87.5)",
+          "oklch(49.3% 0.010 87.5)",
+          "oklch(60.7% 0.010 87.5)",
+          "oklch(72.1% 0.010 87.5)",
+          "oklch(83.6% 0.010 87.5)",
+          "oklch(95.0% 0.010 87.5)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "canonical": "#b3b0a8",
+        "tonalRamp": [
+          "oklch(15.0% 0.012 89.7)",
+          "oklch(26.4% 0.012 89.7)",
+          "oklch(37.9% 0.012 89.7)",
+          "oklch(49.3% 0.012 89.7)",
+          "oklch(60.7% 0.012 89.7)",
+          "oklch(72.1% 0.012 89.7)",
+          "oklch(83.6% 0.012 89.7)",
+          "oklch(95.0% 0.012 89.7)"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink Faint",
+        "canonical": "#8f8d85",
+        "tonalRamp": [
+          "oklch(15.0% 0.012 95.2)",
+          "oklch(26.4% 0.012 95.2)",
+          "oklch(37.9% 0.012 95.2)",
+          "oklch(49.3% 0.012 95.2)",
+          "oklch(60.7% 0.012 95.2)",
+          "oklch(72.1% 0.012 95.2)",
+          "oklch(83.6% 0.012 95.2)",
+          "oklch(95.0% 0.012 95.2)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "#4a4d50",
+        "tonalRamp": [
+          "oklch(15.0% 0.006 248.0)",
+          "oklch(26.4% 0.006 248.0)",
+          "oklch(37.9% 0.006 248.0)",
+          "oklch(49.3% 0.006 248.0)",
+          "oklch(60.7% 0.006 248.0)",
+          "oklch(72.1% 0.006 248.0)",
+          "oklch(83.6% 0.006 248.0)",
+          "oklch(95.0% 0.006 248.0)"
+        ]
+      },
+      "rule-2": {
+        "role": "neutral",
+        "displayName": "Rule Hairline",
+        "canonical": "#333538",
+        "tonalRamp": [
+          "oklch(15.0% 0.006 258.4)",
+          "oklch(26.4% 0.006 258.4)",
+          "oklch(37.9% 0.006 258.4)",
+          "oklch(49.3% 0.006 258.4)",
+          "oklch(60.7% 0.006 258.4)",
+          "oklch(72.1% 0.006 258.4)",
+          "oklch(83.6% 0.006 258.4)",
+          "oklch(95.0% 0.006 258.4)"
+        ]
+      },
+      "label": {
+        "role": "primary",
+        "displayName": "Label White",
+        "canonical": "#f5f3ee",
+        "tonalRamp": [
+          "oklch(15.0% 0.007 88.6)",
+          "oklch(26.4% 0.007 88.6)",
+          "oklch(37.9% 0.007 88.6)",
+          "oklch(49.3% 0.007 88.6)",
+          "oklch(60.7% 0.007 88.6)",
+          "oklch(72.1% 0.007 88.6)",
+          "oklch(83.6% 0.007 88.6)",
+          "oklch(95.0% 0.007 88.6)"
+        ]
+      },
+      "label-hot": {
+        "role": "primary",
+        "displayName": "Label Hot",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15.0% 0 0)",
+          "oklch(26.4% 0 0)",
+          "oklch(37.9% 0 0)",
+          "oklch(49.3% 0 0)",
+          "oklch(60.7% 0 0)",
+          "oklch(72.1% 0 0)",
+          "oklch(83.6% 0 0)",
+          "oklch(95.0% 0 0)"
+        ]
+      },
+      "label-ink": {
+        "role": "primary",
+        "displayName": "Label Ink",
+        "canonical": "#17181a",
+        "tonalRamp": [
+          "oklch(15.0% 0.004 264.5)",
+          "oklch(26.4% 0.004 264.5)",
+          "oklch(37.9% 0.004 264.5)",
+          "oklch(49.3% 0.004 264.5)",
+          "oklch(60.7% 0.004 264.5)",
+          "oklch(72.1% 0.004 264.5)",
+          "oklch(83.6% 0.004 264.5)",
+          "oklch(95.0% 0.004 264.5)"
+        ]
+      },
+      "label-ink-2": {
+        "role": "primary",
+        "displayName": "Label Ink Muted",
+        "canonical": "#5e5f5c",
+        "tonalRamp": [
+          "oklch(15.0% 0.005 121.7)",
+          "oklch(26.4% 0.005 121.7)",
+          "oklch(37.9% 0.005 121.7)",
+          "oklch(49.3% 0.005 121.7)",
+          "oklch(60.7% 0.005 121.7)",
+          "oklch(72.1% 0.005 121.7)",
+          "oklch(83.6% 0.005 121.7)",
+          "oklch(95.0% 0.005 121.7)"
+        ]
+      },
+      "tag": {
+        "role": "secondary",
+        "displayName": "Manila",
+        "canonical": "#e3cf9e",
+        "tonalRamp": [
+          "oklch(15.0% 0.036 88.4)",
+          "oklch(26.4% 0.056 88.4)",
+          "oklch(37.9% 0.068 88.4)",
+          "oklch(49.3% 0.068 88.4)",
+          "oklch(60.7% 0.068 88.4)",
+          "oklch(72.1% 0.068 88.4)",
+          "oklch(83.6% 0.068 88.4)",
+          "oklch(95.0% 0.060 88.4)"
+        ]
+      },
+      "tag-2": {
+        "role": "secondary",
+        "displayName": "Manila Edge",
+        "canonical": "#d4bd87",
+        "tonalRamp": [
+          "oklch(15.0% 0.037 87.5)",
+          "oklch(26.4% 0.055 87.5)",
+          "oklch(37.9% 0.075 87.5)",
+          "oklch(49.3% 0.075 87.5)",
+          "oklch(60.7% 0.075 87.5)",
+          "oklch(72.1% 0.075 87.5)",
+          "oklch(83.6% 0.075 87.5)",
+          "oklch(95.0% 0.057 87.5)"
+        ]
+      },
+      "tag-ink": {
+        "role": "secondary",
+        "displayName": "Tag Ink",
+        "canonical": "#2a2416",
+        "tonalRamp": [
+          "oklch(15.0% 0.026 87.4)",
+          "oklch(26.4% 0.026 87.4)",
+          "oklch(37.9% 0.026 87.4)",
+          "oklch(49.3% 0.026 87.4)",
+          "oklch(60.7% 0.026 87.4)",
+          "oklch(72.1% 0.026 87.4)",
+          "oklch(83.6% 0.026 87.4)",
+          "oklch(95.0% 0.026 87.4)"
+        ]
+      },
+      "tag-ink-2": {
+        "role": "secondary",
+        "displayName": "Tag Ink Muted",
+        "canonical": "#5c4d2c",
+        "tonalRamp": [
+          "oklch(15.0% 0.037 85.8)",
+          "oklch(26.4% 0.053 85.8)",
+          "oklch(37.9% 0.053 85.8)",
+          "oklch(49.3% 0.053 85.8)",
+          "oklch(60.7% 0.053 85.8)",
+          "oklch(72.1% 0.053 85.8)",
+          "oklch(83.6% 0.053 85.8)",
+          "oklch(95.0% 0.053 85.8)"
+        ]
+      },
+      "brass": {
+        "role": "secondary",
+        "displayName": "Brass",
+        "canonical": "#b08d4a",
+        "tonalRamp": [
+          "oklch(15.0% 0.037 82.1)",
+          "oklch(26.4% 0.055 82.1)",
+          "oklch(37.9% 0.077 82.1)",
+          "oklch(49.3% 0.095 82.1)",
+          "oklch(60.7% 0.095 82.1)",
+          "oklch(72.1% 0.095 82.1)",
+          "oklch(83.6% 0.095 82.1)",
+          "oklch(95.0% 0.047 82.1)"
+        ]
+      },
+      "brass-2": {
+        "role": "secondary",
+        "displayName": "Brass Deep",
+        "canonical": "#7d6132",
+        "tonalRamp": [
+          "oklch(15.0% 0.038 78.8)",
+          "oklch(26.4% 0.056 78.8)",
+          "oklch(37.9% 0.074 78.8)",
+          "oklch(49.3% 0.074 78.8)",
+          "oklch(60.7% 0.074 78.8)",
+          "oklch(72.1% 0.074 78.8)",
+          "oklch(83.6% 0.074 78.8)",
+          "oklch(95.0% 0.044 78.8)"
+        ]
+      },
+      "focus": {
+        "role": "tertiary",
+        "displayName": "Focus Gold",
+        "canonical": "#f2c14e",
+        "tonalRamp": [
+          "oklch(15.0% 0.037 85.4)",
+          "oklch(26.4% 0.055 85.4)",
+          "oklch(37.9% 0.077 85.4)",
+          "oklch(49.3% 0.101 85.4)",
+          "oklch(60.7% 0.123 85.4)",
+          "oklch(72.1% 0.141 85.4)",
+          "oklch(83.6% 0.141 85.4)",
+          "oklch(95.0% 0.053 85.4)"
+        ]
+      },
+      "err": {
+        "role": "tertiary",
+        "displayName": "Error Orange",
+        "canonical": "#f26b4e",
+        "tonalRamp": [
+          "oklch(15.0% 0.067 33.7)",
+          "oklch(26.4% 0.099 33.7)",
+          "oklch(37.9% 0.139 33.7)",
+          "oklch(49.3% 0.173 33.7)",
+          "oklch(60.7% 0.173 33.7)",
+          "oklch(72.1% 0.173 33.7)",
+          "oklch(83.6% 0.091 33.7)",
+          "oklch(95.0% 0.025 33.7)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The hero's one line only; Barlow Condensed 800, balanced wrap."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section h2s; the tag's h2 is the same face at a fixed 2rem."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Step titles and panel h3s; spec heads are 800 at 1.7rem on a strip."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs at 17px capped at 68ch; ledes at 1.1rem in Ink Muted."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase condensed labels on a stock: field labels, tabs, slot titles, buttons."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "H-codes on chip labels: Barlow Condensed 800 with tabular figures, name after in Barlow 500."
+      }
+    },
+    "shadows": [
+      {
+        "name": "chip-rest",
+        "value": "0 1px 2px rgba(0,0,0,.5), 0 6px 14px rgba(0,0,0,.35)",
+        "purpose": "Chips in the wall, pairing chips, step numerals."
+      },
+      {
+        "name": "chip-hover",
+        "value": "0 2px 3px rgba(0,0,0,.5), 0 12px 22px rgba(0,0,0,.45)",
+        "purpose": "Chip on hover with translateY(-3px)."
+      },
+      {
+        "name": "chip-picked",
+        "value": "0 3px 4px rgba(0,0,0,.55), 0 18px 30px rgba(0,0,0,.5)",
+        "purpose": "Picked chip with translateY(-6px) scale(1.04)."
+      },
+      {
+        "name": "light-ring",
+        "value": "inset 0 0 0 1px rgba(0,0,0,.18)",
+        "purpose": "Hairline on chips lighter than the label and on filled swatches."
+      },
+      {
+        "name": "strip",
+        "value": "0 1px 2px rgba(0,0,0,.5), 0 4px 10px rgba(0,0,0,.3)",
+        "purpose": "Label strips, pairing captions, spec heads, the stamp."
+      },
+      {
+        "name": "strip-contact",
+        "value": "0 1px 2px rgba(0,0,0,.35)",
+        "purpose": "The Add photos strip inside the tag; contact layer only."
+      },
+      {
+        "name": "tag",
+        "value": "drop-shadow(0 2px 3px rgba(0,0,0,.5)) drop-shadow(0 18px 28px rgba(0,0,0,.5))",
+        "purpose": "Filter on the hang tag wrapper so the shadow follows the notched clip; 0 12px 22px under 980px and on the mini tag."
+      },
+      {
+        "name": "eyelet",
+        "value": "inset 0 0 0 1px #7d6132, 0 0 0 1px #7d6132, 0 1px 1px rgba(0,0,0,.35)",
+        "purpose": "Brass rim hairlines."
+      },
+      {
+        "name": "bar",
+        "value": "0 -4px 18px rgba(0,0,0,.45)",
+        "purpose": "The fixed mobile bar; the only upward shadow."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "The one easing for every lift and cross-fade."
+      },
+      {
+        "name": "lift",
+        "value": "350ms",
+        "purpose": "Chip and pairing lift, slot swatch recolor."
+      },
+      {
+        "name": "crossfade",
+        "value": "450ms",
+        "purpose": "Slot value cross-fade after a pick."
+      },
+      {
+        "name": "badge",
+        "value": "250ms",
+        "purpose": "Slot badge fade and 4px drop on a picked chip."
+      },
+      {
+        "name": "press",
+        "value": "200ms",
+        "purpose": "Send button lift, checkbox tick scale."
+      },
+      {
+        "name": "tint",
+        "value": "150ms",
+        "purpose": "Tab text and background, default ease."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "scroll-behavior: auto",
+        "purpose": "Smooth anchor scroll turns off under prefers-reduced-motion; there are no keyframes to disable."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "hero-stack",
+        "value": "980px"
+      },
+      {
+        "name": "nav-collapse",
+        "value": "860px"
+      },
+      {
+        "name": "tight",
+        "value": "760px"
+      },
+      {
+        "name": "wall-4col",
+        "value": "480px"
+      },
+      {
+        "name": "row-stack",
+        "value": "420px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Sample Chip",
+      "kind": "custom",
+      "refersTo": "chip-label",
+      "description": "The signature object: a coated 5:7 chip with a punched hole, gloss, and a white label strip carrying the H-code and name; it is the quote form's first field.",
+      "html": "<button class=\"ds-chip\" style=\"--c:#7d6b4e\" aria-pressed=\"false\"><span class=\"ds-chip-slot\" aria-hidden=\"true\"></span><span class=\"ds-chip-lbl\"><span class=\"ds-chip-code\">H-265</span><span class=\"ds-chip-name\">Flat Dark Earth</span></span></button> <button class=\"ds-chip ds-chip--picked\" style=\"--c:#6b7271\" aria-pressed=\"true\" data-slot=\"finish\"><span class=\"ds-chip-slot\" aria-hidden=\"true\">finish</span><span class=\"ds-chip-lbl\"><span class=\"ds-chip-code\">H-234</span><span class=\"ds-chip-name\">Sniper Grey</span></span></button>",
+      "css": ".ds-chip{position:relative;width:112px;aspect-ratio:5/7;border:0;padding:0;margin:8px;border-radius:7px;background:var(--c);cursor:pointer;display:inline-flex;flex-direction:column;justify-content:flex-end;text-align:left;overflow:hidden;vertical-align:top;box-shadow:0 1px 2px rgba(0,0,0,.5),0 6px 14px rgba(0,0,0,.35);-webkit-mask:radial-gradient(circle at 13px 13px,transparent 4.5px,#000 5.2px);mask:radial-gradient(circle at 13px 13px,transparent 4.5px,#000 5.2px);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s cubic-bezier(.16,1,.3,1)}.ds-chip::before{content:\"\";position:absolute;inset:0;background:linear-gradient(118deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,.06) 32%,rgba(0,0,0,0) 48%,rgba(0,0,0,.16) 100%);pointer-events:none}.ds-chip-lbl{position:relative;z-index:1;background:var(--label,#f5f3ee);color:var(--label-ink,#17181a);padding:5px 7px 6px;font-family:\"Barlow Condensed\",system-ui,sans-serif;line-height:1.05}.ds-chip-code{display:block;font-weight:800;font-size:.98rem;letter-spacing:.02em;font-variant-numeric:tabular-nums}.ds-chip-name{display:block;font-family:Barlow,system-ui,sans-serif;font-weight:500;font-size:.68rem;color:var(--label-ink-2,#5e5f5c);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ds-chip-slot{position:absolute;top:8px;right:8px;z-index:1;font-family:\"Barlow Condensed\",system-ui,sans-serif;font-weight:800;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;background:var(--label-ink,#17181a);color:var(--label,#f5f3ee);padding:3px 6px 2px;border-radius:3px;opacity:0;transform:translateY(-4px);transition:opacity .25s,transform .25s cubic-bezier(.16,1,.3,1)}.ds-chip:hover{transform:translateY(-3px);box-shadow:0 2px 3px rgba(0,0,0,.5),0 12px 22px rgba(0,0,0,.45)}.ds-chip--picked,.ds-chip[data-slot]{transform:translateY(-6px) scale(1.04);box-shadow:0 3px 4px rgba(0,0,0,.55),0 18px 30px rgba(0,0,0,.5)}.ds-chip[data-slot] .ds-chip-slot{opacity:1;transform:none}.ds-chip[data-slot=\"accent\"] .ds-chip-slot{background:var(--brass-2,#7d6132)}.ds-chip:focus-visible{outline:2px solid var(--focus,#f2c14e);outline-offset:3px}"
+    },
+    {
+      "name": "Label Strip",
+      "kind": "chip",
+      "refersTo": "label-strip",
+      "description": "The secondary surface: white label stock with label ink, used for item strips, spec heads, the stamp, and the pairing caption, where it rides inside a button whose hover lifts the two chips.",
+      "html": "<span class=\"ds-strip\">Pistol slides<small>full or two-tone</small></span> <span class=\"ds-strip\">Magazines</span><br><button class=\"ds-pair\" type=\"button\" style=\"--a:#6b7271;--b:#202124\" aria-label=\"Slide and frame: H-234 Sniper Grey over H-146 Graphite Black\"><span class=\"ds-pair-two\" aria-hidden=\"true\"><i class=\"ds-pair-cb\"></i><i class=\"ds-pair-ca\"></i></span><span class=\"ds-strip ds-pair-lbl\"><span class=\"ds-pair-on\">Slide and frame</span><span class=\"ds-pair-codes\"><b>H-234</b> Sniper Grey over <b>H-146</b> Graphite Black</span></span></button>",
+      "css": ".ds-strip{display:inline-block;margin:6px 5px;background:var(--label,#f5f3ee);color:var(--label-ink,#17181a);border-radius:4px;padding:8px 12px 9px;font-family:\"Barlow Condensed\",system-ui,sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.02em;line-height:1.1;box-shadow:0 1px 2px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.3)}.ds-strip small{display:block;font-family:Barlow,system-ui,sans-serif;font-weight:400;font-size:.8rem;color:var(--label-ink-2,#5e5f5c);letter-spacing:0;margin-top:2px}.ds-pair{background:transparent;border:0;padding:0;margin:14px 5px 6px;text-align:left;cursor:pointer;color:var(--ink,#ebe8e1);display:block;font:inherit}.ds-pair-two{display:block;position:relative;width:132px;height:118px;margin:0 0 10px}.ds-pair-two i{position:absolute;width:76px;height:104px;border-radius:7px;box-shadow:0 1px 2px rgba(0,0,0,.5),0 6px 14px rgba(0,0,0,.35);-webkit-mask:radial-gradient(circle at 11px 11px,transparent 4px,#000 4.6px);mask:radial-gradient(circle at 11px 11px,transparent 4px,#000 4.6px);transition:transform .35s cubic-bezier(.16,1,.3,1)}.ds-pair-two i::before{content:\"\";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(118deg,rgba(255,255,255,.22),rgba(255,255,255,.06) 32%,rgba(0,0,0,0) 48%,rgba(0,0,0,.16))}.ds-pair-cb{left:0;top:14px;background:var(--b);transform:rotate(-6deg)}.ds-pair-ca{left:50px;top:0;background:var(--a);transform:rotate(5deg);z-index:1}.ds-pair:hover .ds-pair-ca{transform:rotate(5deg) translateY(-4px)}.ds-pair:hover .ds-pair-cb{transform:rotate(-6deg) translateY(-2px)}.ds-pair-lbl{margin:0;padding:6px 10px 7px;max-width:100%}.ds-pair-on{display:block;font-size:1.1rem;line-height:1.05}.ds-pair-codes{display:block;font-family:Barlow,system-ui,sans-serif;font-weight:400;font-size:.8rem;color:var(--label-ink-2,#5e5f5c);font-variant-numeric:tabular-nums;letter-spacing:0;margin-top:3px}.ds-pair-codes b{color:var(--label-ink,#17181a);font-weight:600}.ds-pair:focus-visible{outline:2px solid var(--focus,#f2c14e);outline-offset:4px;border-radius:6px}"
+    },
+    {
+      "name": "Family Tab",
+      "kind": "nav",
+      "refersTo": "tab",
+      "description": "Deck tabs along the top of the chip wall; the pressed tab becomes a label strip joined to the wall.",
+      "html": "<div class=\"ds-tabs\"><button class=\"ds-tab\" aria-pressed=\"true\">All 43</button><button class=\"ds-tab\" aria-pressed=\"false\">Blacks &amp; whites</button><button class=\"ds-tab\" aria-pressed=\"false\">Earths</button><button class=\"ds-tab\" aria-pressed=\"false\">Greys</button><button class=\"ds-tab\" aria-pressed=\"false\">Metallics</button></div><div class=\"ds-wall\"></div>",
+      "css": ".ds-tabs{display:flex;flex-wrap:wrap;gap:4px;padding:0 6px;position:relative;z-index:1}.ds-tab{font-family:\"Barlow Condensed\",system-ui,sans-serif;font-weight:700;font-size:1rem;letter-spacing:.02em;text-transform:uppercase;background:var(--mat-2,#232426);color:var(--ink-2,#b3b0a8);border:1px solid var(--rule-2,#333538);border-bottom:0;padding:8px 14px 10px;border-radius:7px 7px 0 0;cursor:pointer;transition:background .15s,color .15s}.ds-tab:hover{color:var(--ink,#ebe8e1)}.ds-tab[aria-pressed=\"true\"]{background:var(--label,#f5f3ee);color:var(--label-ink,#17181a);border-color:var(--label,#f5f3ee)}.ds-tab:focus-visible{outline:2px solid var(--focus,#f2c14e);outline-offset:3px;border-radius:3px}.ds-wall{border:1px solid var(--rule-2,#333538);border-radius:0 8px 8px 8px;background:rgba(0,0,0,.22);min-height:72px}"
+    },
+    {
+      "name": "Send Button",
+      "kind": "button",
+      "refersTo": "button-send",
+      "description": "The tag's primary action: label ink on the manila tag, condensed uppercase, full width; lifts 1px and goes black on hover.",
+      "html": "<div class=\"ds-manila\"><button class=\"ds-send\" type=\"button\">Send for a quote</button></div>",
+      "css": ".ds-manila{background:var(--tag,#e3cf9e);padding:16px;border-radius:6px;max-width:320px}.ds-send{width:100%;background:var(--label-ink,#17181a);color:var(--label,#f5f3ee);border:0;border-radius:5px;font-family:\"Barlow Condensed\",system-ui,sans-serif;font-weight:800;font-size:1.25rem;letter-spacing:.04em;text-transform:uppercase;padding:13px 16px;cursor:pointer;transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s}.ds-send:hover{background:#000;transform:translateY(-1px)}.ds-send:disabled{opacity:.6;cursor:default;transform:none}.ds-send:focus-visible{outline:2px solid var(--brass-2,#7d6132);outline-offset:3px}"
+    },
+    {
+      "name": "Strip Button",
+      "kind": "button",
+      "refersTo": "button-label",
+      "description": "A label strip that acts: the nav CTA, the sister-shop link, the mobile bar link, and the Add photos picker. Hover catches light.",
+      "html": "<a class=\"ds-btn-strip\" href=\"#\">Quote tag</a> <a class=\"ds-btn-strip ds-btn-strip--caps\" href=\"#\">tacticoolgun.com</a>",
+      "css": ".ds-btn-strip{display:inline-block;margin:6px 4px;background:var(--label,#f5f3ee);color:var(--label-ink,#17181a);text-decoration:none;font-family:Barlow,system-ui,sans-serif;font-weight:600;font-size:.9rem;padding:7px 14px;border-radius:4px;transition:background .15s}.ds-btn-strip--caps{font-family:\"Barlow Condensed\",system-ui,sans-serif;font-weight:800;font-size:1rem;text-transform:uppercase;letter-spacing:.04em;padding:9px 14px}.ds-btn-strip:hover{background:#fff;color:var(--label-ink,#17181a)}.ds-btn-strip:focus-visible{outline:2px solid var(--focus,#f2c14e);outline-offset:3px;border-radius:3px}"
+    },
+    {
+      "name": "Tag Input",
+      "kind": "input",
+      "refersTo": "input-tag",
+      "description": "A field on the manila tag: condensed uppercase label, 55% white well with a brass bottom edge, brass focus ring, and the select's inline chevron.",
+      "html": "<div class=\"ds-manila\"><div class=\"ds-field\"><label class=\"ds-lab\" for=\"ds-item\">Item</label><select class=\"ds-input\" id=\"ds-item\"><option>What are we coating?</option><option>Pistol slide</option><option>Knife</option></select></div><div class=\"ds-field\"><label class=\"ds-lab\" for=\"ds-name\">Name</label><input class=\"ds-input\" id=\"ds-name\" type=\"text\" placeholder=\"Your name\"></div><label class=\"ds-check\"><input type=\"checkbox\" checked> Cerakote</label></div>",
+      "css": ".ds-manila{background:var(--tag,#e3cf9e);color:var(--tag-ink,#2a2416);padding:16px;border-radius:6px;max-width:320px;font-family:Barlow,system-ui,sans-serif;font-size:17px}.ds-field{margin:0 0 10px}.ds-lab{display:block;font-family:\"Barlow Condensed\",system-ui,sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;color:var(--tag-ink-2,#5c4d2c);margin:0 0 4px}.ds-input{width:100%;box-sizing:border-box;font:inherit;background:rgba(255,255,255,.55);border:1px solid var(--tag-2,#d4bd87);border-bottom-color:var(--brass-2,#7d6132);border-radius:3px;padding:9px 10px;color:var(--tag-ink,#2a2416)}select.ds-input{appearance:none;-webkit-appearance:none;padding-right:34px;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%232a2416' stroke-width='2'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 12px center}.ds-input::placeholder{color:#6a5c3d}.ds-input:hover{border-color:var(--brass-2,#7d6132)}.ds-input:focus{outline:2px solid var(--brass-2,#7d6132);outline-offset:1px;background:#fff}.ds-input:focus-visible{outline:2px solid var(--brass-2,#7d6132);outline-offset:1px;background:#fff}.ds-check{display:flex;align-items:center;gap:8px;font-weight:500;font-size:.98rem;color:var(--tag-ink,#2a2416);cursor:pointer}.ds-check input{appearance:none;-webkit-appearance:none;width:18px;height:18px;margin:0;border:1.5px solid var(--brass-2,#7d6132);border-radius:3px;background:rgba(255,255,255,.55);display:grid;place-content:center;cursor:pointer;flex:none}.ds-check input::before{content:\"\";width:10px;height:10px;background:var(--label-ink,#17181a);clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0,43% 62%);transform:scale(0);transition:transform .2s cubic-bezier(.16,1,.3,1)}.ds-check input:checked{background:#fff}.ds-check input:checked::before{transform:scale(1)}.ds-check input:focus-visible{outline:2px solid var(--brass-2,#7d6132);outline-offset:2px}"
+    },
+    {
+      "name": "Slot Button",
+      "kind": "custom",
+      "refersTo": "slot-button",
+      "description": "The Finish and Accent slots on the tag: a punched swatch beside a title and value; dashed brass when empty, solid and white when pressed, the swatch recoloring from the picked chip.",
+      "html": "<div class=\"ds-manila\"><div class=\"ds-slots\"><button class=\"ds-slotbtn ds-slotbtn--filled\" type=\"button\" aria-pressed=\"true\" style=\"--c:#7d6b4e\"><span class=\"ds-sw\" aria-hidden=\"true\"></span><span><span class=\"ds-slot-t\">Finish</span><span class=\"ds-slot-v\">H-265<small>Flat Dark Earth</small></span></span></button><button class=\"ds-slotbtn\" type=\"button\" aria-pressed=\"false\"><span class=\"ds-sw\" aria-hidden=\"true\"></span><span><span class=\"ds-slot-t\">Accent</span><span class=\"ds-slot-v\">Optional second chip</span></span></button></div></div>",
+      "css": ".ds-manila{background:var(--tag,#e3cf9e);color:var(--tag-ink,#2a2416);padding:16px;border-radius:6px;max-width:320px;font-family:Barlow,system-ui,sans-serif}.ds-slots{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ds-slotbtn{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;text-align:left;font:inherit;color:inherit;background:rgba(255,255,255,.4);border:1px dashed var(--brass-2,#7d6132);border-radius:5px;padding:7px;cursor:pointer;min-height:62px;transition:background .2s}.ds-slotbtn:hover{background:rgba(255,255,255,.6)}.ds-slotbtn[aria-pressed=\"true\"]{border-style:solid;background:#fff;box-shadow:0 0 0 2px var(--brass-2,#7d6132) inset}.ds-slotbtn:focus-visible{outline:2px solid var(--brass-2,#7d6132);outline-offset:2px}.ds-sw{width:40px;height:52px;border-radius:4px;background:var(--c,transparent);border:1px dashed var(--brass-2,#7d6132);-webkit-mask:radial-gradient(circle at 8px 8px,transparent 3px,#000 3.6px);mask:radial-gradient(circle at 8px 8px,transparent 3px,#000 3.6px);transition:background .35s cubic-bezier(.16,1,.3,1)}.ds-slotbtn--filled .ds-sw{border:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}.ds-slot-t{display:block;font-family:\"Barlow Condensed\",system-ui,sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--tag-ink-2,#5c4d2c);line-height:1.1}.ds-slot-v{display:block;font-weight:600;font-size:.95rem;line-height:1.15;color:var(--tag-ink,#2a2416);overflow-wrap:anywhere;transition:opacity .45s cubic-bezier(.16,1,.3,1)}.ds-slot-v small{display:block;font-weight:400;color:var(--tag-ink-2,#5c4d2c);font-size:.8rem}"
+    },
+    {
+      "name": "Hang Tag",
+      "kind": "card",
+      "refersTo": "hang-tag",
+      "description": "The quote form's container: manila stock with notched top corners, a punched eyelet with a brass rim, a string above, and a two-layer drop shadow on the wrapper.",
+      "html": "<div class=\"ds-tag-wrap\"><div class=\"ds-tag\"><h2 class=\"ds-tag-h\">Quote tag</h2><p class=\"ds-tag-lede\">Fill the tag, we reply with price and turnaround.</p><a class=\"ds-tag-link\" href=\"#\">Placeholder link</a></div></div>",
+      "css": ".ds-tag-wrap{position:relative;padding-top:34px;max-width:300px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5)) drop-shadow(0 18px 28px rgba(0,0,0,.5))}.ds-tag-wrap::before{content:\"\";position:absolute;top:0;left:50%;width:2px;height:54px;margin-left:-1px;background:linear-gradient(#d8d5cb,#8f8c83)}.ds-tag{position:relative;background:var(--tag,#e3cf9e);color:var(--tag-ink,#2a2416);border-radius:10px 10px 6px 6px;padding:34px 20px 18px;font-family:Barlow,system-ui,sans-serif;font-size:17px;line-height:1.5;clip-path:polygon(0 18px,18px 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%);-webkit-mask:radial-gradient(circle at 50% 19px,transparent 5.5px,#000 6px);mask:radial-gradient(circle at 50% 19px,transparent 5.5px,#000 6px)}.ds-tag::before{content:\"\";position:absolute;top:9px;left:50%;width:20px;height:20px;margin-left:-10px;border-radius:50%;border:4px solid var(--brass,#b08d4a);box-shadow:inset 0 0 0 1px var(--brass-2,#7d6132),0 0 0 1px var(--brass-2,#7d6132),0 1px 1px rgba(0,0,0,.35)}.ds-tag-h{font-family:\"Barlow Condensed\",system-ui,sans-serif;font-weight:800;font-size:2rem;line-height:.95;letter-spacing:-.01em;margin:0 0 4px}.ds-tag-lede{font-size:.95rem;color:var(--tag-ink-2,#5c4d2c);margin:0 0 14px}.ds-tag-link{color:var(--tag-ink,#2a2416);text-decoration-thickness:1px;text-underline-offset:.2em}.ds-tag-link:hover{color:var(--brass-2,#7d6132)}.ds-tag-link:focus-visible{outline:2px solid var(--brass-2,#7d6132);outline-offset:3px;border-radius:3px}"
+    },
+    {
+      "name": "Nav Strip",
+      "kind": "nav",
+      "refersTo": "button-label",
+      "description": "The sticky top strip: translucent mat with a hairline bottom, condensed brand, muted links that brighten on hover, and a strip-button CTA.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-brand\" href=\"#\">Tacti-Cool <span>Coatings</span></a><ul class=\"ds-nav-list\"><li><a href=\"#\">Finishes</a></li><li><a href=\"#\">Services</a></li><li><a href=\"#\">Find us</a></li></ul><a class=\"ds-nav-cta\" href=\"#\">Quote tag</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:24px;padding:10px 16px;background:rgba(27,28,30,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--rule-2,#333538);color:var(--ink,#ebe8e1);font-family:Barlow,system-ui,sans-serif}.ds-nav-brand{font-family:\"Barlow Condensed\",system-ui,sans-serif;font-weight:800;font-size:1.35rem;letter-spacing:.01em;text-decoration:none;color:var(--ink,#ebe8e1);margin-right:auto;white-space:nowrap}.ds-nav-brand span{color:var(--ink-2,#b3b0a8);font-weight:600}.ds-nav-list{display:flex;gap:18px;margin:0;padding:0;list-style:none}.ds-nav-list a{text-decoration:none;font-weight:500;font-size:.95rem;color:var(--ink-2,#b3b0a8)}.ds-nav-list a:hover{color:var(--ink,#ebe8e1)}.ds-nav-cta{background:var(--label,#f5f3ee);color:var(--label-ink,#17181a);text-decoration:none;font-weight:600;font-size:.9rem;padding:7px 14px;border-radius:4px}.ds-nav-cta:hover{background:#fff}.ds-nav a:focus-visible{outline:2px solid var(--focus,#f2c14e);outline-offset:3px;border-radius:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Color Card",
+    "overview": "The whole page is the Cerakote sample-chip deck laid out on the shop counter. The ground is a charcoal rubber mat with a fine diamond-tread texture; everything that matters sits on it as a physical object: coated aluminum chips with a punched hole and a gloss highlight, white label strips with an H-code and a name, and one manila hang tag with a brass eyelet that is the quote form. The system's own palette is deliberately achromatic and material (mat, label white, manila, brass); chromatic color belongs to the chips, and it only travels off the wall when a visitor picks a chip and it lands on the tag.\n\nThe voice is counter-staff: direct, catalog-literal, no hype. Type is a stamped plate, Barlow Condensed set heavy and tight for every heading, label, and code, with Barlow carrying body copy at a comfortable 17px. Density is a counter, not a brochure: chips pack seven or eight to a row, strips sit shoulder to shoulder, and sections are separated by hairline galvanized rules rather than bands of color. There is one motion grammar, an exponential ease-out that lifts a chip and cross-fades the tag's swatch to it; nothing enters, slides, or reveals on scroll.\n\nConfirmed rejections from the chosen world: no gradients as decoration, no icon tiles, no brand accent color beyond what the visitor picks.",
+    "keyCharacteristics": [
+      "Charcoal tread mat as ground; every surface above it is an object that casts a soft two-layer shadow",
+      "Chromatic color lives only in chip faces and picked swatches; chrome is mat, white label, manila, brass",
+      "Barlow Condensed 800 for headings and codes, 700 for labels, Barlow 400/500/600 for body and names",
+      "Label strips are the universal control surface: tabs, buttons, process heads, pairing captions, chip labels",
+      "The quote form is a manila hang tag with a notched top, punched eyelet, brass rim, and string",
+      "One easing, cubic-bezier(.16,1,.3,1), for every lift and cross-fade; no per-section entrances"
+    ],
+    "rules": [
+      {
+        "name": "The Chip Carries the Color Rule",
+        "body": "Chromatic color appears only on a chip face, on a swatch that was filled from a chip, or on the step numerals, which are chips. The chrome of the page (mat, label, manila, brass, rules) is achromatic or earthen and never competes with the catalog.",
+        "section": "colors"
+      },
+      {
+        "name": "The Picked Accent Rule",
+        "body": "The page has no brand accent. The accent on any viewport is whatever the visitor picked; the only system color that behaves like an accent is Focus Gold, and it appears solely as a focus, hover, or selection state.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Stocks Rule",
+        "body": "Text sits on one of two stocks and takes that stock's ink: label white takes label ink, manila takes tag ink. Mat ink never prints on a strip or a tag, and tag ink never prints on the mat.",
+        "section": "colors"
+      },
+      {
+        "name": "The Stamped Plate Rule",
+        "body": "Every heading is Barlow Condensed 800 at line-height 0.95 and -0.01em. No heading is lighter than 700 and nothing condensed is set below 0.68rem.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Code Rule",
+        "body": "An H-code is always Barlow Condensed 800 with tabular figures, and the name that follows it is always the body face, smaller and muted. Code first, name second, never the other way.",
+        "section": "typography"
+      },
+      {
+        "name": "The Uppercase Is a Label Rule",
+        "body": "Uppercase is reserved for condensed labels on a stock (tabs, field labels, slot titles, the send button, strip buttons). Headings and body copy are sentence case.",
+        "section": "typography"
+      },
+      {
+        "name": "The Objects Cast, Surfaces Don't Rule",
+        "body": "A shadow means the element is a thing lying on the mat (chip, strip, tag, bar). Panels, bands, and tables are part of the mat and get a hairline, never a shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Lift Is a Shadow Rule",
+        "body": "Hover and selection raise the object by growing its shadow and translating it up along the one easing; the surface color never changes on lift.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** keep chromatic color inside chip faces and swatches filled from chips; the chrome stays Mat, Label White, Manila, and Brass.",
+      "**Do** set every H-code in Barlow Condensed 800 with tabular figures and the color name after it in Barlow 500, smaller and muted.",
+      "**Do** build every control as a label strip (Label White, Label Ink, 4px radius) or a chip; a pressed tab, a button, and a chip label are the same object.",
+      "**Do** give anything that lies on the mat the two-layer shadow (`0 1px 2px rgba(0,0,0,.5)` plus a wide ambient layer) and anything that is part of the mat a 1px Rule Hairline border instead.",
+      "**Do** use `cubic-bezier(.16,1,.3,1)` for every lift and cross-fade, `.35s` for lifts and `.45s` for value fades.",
+      "**Do** mark empty and placeholder states with dashed Brass Deep (empty swatch, empty slot) or a dashed brass underline (placeholder copy).",
+      "**Do** ring focus in Focus Gold (2px, 3px offset) on the mat and in Brass Deep on the tag.",
+      "**Do** punch the hole: a chip or a tag without its mask is a rectangle, not a sample."
+    ],
+    "donts": [
+      "**Don't** use gradients as decoration; the only gradients are material: the chip gloss, the metallic grain, the tread hairlines, and the tag's string.",
+      "**Don't** add icon tiles or ornamental glyphs; the only icon on the page is the select's inline chevron.",
+      "**Don't** introduce a brand accent color; the accent on any viewport is the chip the visitor picked, and Focus Gold is a state, not a brand.",
+      "**Don't** use pure black as a ground; the mat is charcoal `mat`, and `#000` appears only as the send button's hover.",
+      "**Don't** add per-section entrances, scroll reveals, or keyframe animation; lifts and cross-fades on the one easing are the whole grammar.",
+      "**Don't** print mat ink on a strip or a tag, or tag ink on the mat; each stock has its own ink.",
+      "**Don't** change a surface's color to show lift; grow the shadow and translate."
+    ]
+  }
+}
