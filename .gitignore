@@ -5,3 +5,10 @@ __pycache__/
 products.json
 .DS_Store
 venv/
+
+# Impeccable transient state (captures, roll records, caches, per-developer overrides)
+**/.impeccable/review/
+**/.impeccable/questions/
+**/.impeccable/hook.cache.json
+**/.impeccable/config.local.json
+**/.impeccable/mocks/

@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tacti-Cool Coatings</title>
+<meta name="description" content="Cerakote, powder coat, and laser engraving for firearms and hard goods. Pick a finish, send a quote tag.">
+<style>
+@font-face{font-family:"Barlow Condensed";font-weight:600;font-style:normal;font-display:swap;src:url("fonts/BarlowCondensed-600.woff2") format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-weight:700;font-style:normal;font-display:swap;src:url("fonts/BarlowCondensed-700.woff2") format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-weight:800;font-style:normal;font-display:swap;src:url("fonts/BarlowCondensed-800.woff2") format("woff2")}
+@font-face{font-family:"Barlow";font-weight:400;font-style:normal;font-display:swap;src:url("fonts/Barlow-400.woff2") format("woff2")}
+@font-face{font-family:"Barlow";font-weight:500;font-style:normal;font-display:swap;src:url("fonts/Barlow-500.woff2") format("woff2")}
+@font-face{font-family:"Barlow";font-weight:600;font-style:normal;font-display:swap;src:url("fonts/Barlow-600.woff2") format("woff2")}
+
+:root{
+  --mat:#1b1c1e;
+  --mat-2:#232426;
+  --mat-tread:rgba(255,255,255,.035);
+  --ink:#ebe8e1;
+  --ink-2:#b3b0a8;
+  --ink-3:#8f8d85;
+  --rule:#4a4d50;
+  --rule-2:#333538;
+  --label:#f5f3ee;
+  --label-ink:#17181a;
+  --label-ink-2:#5e5f5c;
+  --tag:#e3cf9e;
+  --tag-2:#d4bd87;
+  --tag-ink:#2a2416;
+  --tag-ink-2:#5c4d2c;
+  --brass:#b08d4a;
+  --brass-2:#7d6132;
+  --focus:#f2c14e;
+  --err:#f26b4e;
+  --sel-bg:#f2c14e;
+  --sel-ink:#1b1c1e;
+  --display:"Barlow Condensed",system-ui,sans-serif;
+  --body:"Barlow",system-ui,sans-serif;
+  --radius-chip:7px;
+  --pad:clamp(16px,4vw,56px);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;
+  background:var(--mat);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    repeating-linear-gradient(45deg,var(--mat-tread) 0 1px,transparent 1px 9px),
+    repeating-linear-gradient(-45deg,var(--mat-tread) 0 1px,transparent 1px 9px);
+}
+::selection{background:var(--sel-bg);color:var(--sel-ink)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:3px}
+html{scrollbar-color:var(--rule) var(--mat)}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:var(--mat)}
+::-webkit-scrollbar-thumb{background:var(--rule);border:3px solid var(--mat);border-radius:8px}
+a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:.2em}
+a:hover{color:var(--focus)}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:.95;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h2{font-size:clamp(2.2rem,4.6vw,3.6rem);margin-bottom:.45em}
+h3{font-size:1.5rem;font-weight:700;margin-bottom:.35em}
+p{margin:0 0 1em;max-width:68ch}
+button,input,select,textarea{font:inherit;color:inherit}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ph{color:var(--ink-2);border-bottom:1px dashed var(--brass);padding:0 .15em}
+
+/* nav strip */
+.nav{
+  position:sticky;top:0;z-index:20;
+  display:flex;align-items:center;gap:clamp(12px,3vw,32px);
+  padding:10px var(--pad);
+  background:rgba(27,28,30,.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--rule-2);
+}
+.nav .brand{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:.01em;text-decoration:none;margin-right:auto;white-space:nowrap}
+.nav .brand span{color:var(--ink-2);font-weight:600}
+.nav ul{display:flex;gap:clamp(10px,2vw,24px);margin:0;padding:0;list-style:none}
+.nav li a{text-decoration:none;font-weight:500;font-size:.95rem;color:var(--ink-2)}
+.nav li a:hover{color:var(--ink)}
+.nav .cta{background:var(--label);color:var(--label-ink);text-decoration:none;font-weight:600;font-size:.9rem;padding:7px 14px;border-radius:4px}
+.nav .cta:hover{background:#fff;color:var(--label-ink)}
+@media (max-width:860px){.nav ul{display:none}}
+
+/* hero */
+.hero{padding:clamp(24px,4vh,44px) var(--pad) clamp(32px,6vh,72px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(320px,.8fr);gap:clamp(24px,3.5vw,56px);align-items:start}
+.hero-left{min-width:0}
+.hero-head{margin-bottom:clamp(18px,3vh,28px)}
+.hero h1{font-size:clamp(2.6rem,5.4vw,4.8rem);max-width:13ch}
+.hero .sub{font-size:clamp(1rem,1.3vw,1.15rem);color:var(--ink-2);margin:.5em 0 0;max-width:62ch}
+.hero .sub b{color:var(--ink);font-weight:600}
+@media (max-width:980px){.hero{grid-template-columns:1fr}}
+
+/* deck */
+.deck{min-width:0}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;padding:0 6px;position:relative;z-index:1}
+.tab{
+  font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.02em;text-transform:uppercase;
+  background:var(--mat-2);color:var(--ink-2);border:1px solid var(--rule-2);border-bottom:0;
+  padding:8px 14px 10px;border-radius:7px 7px 0 0;cursor:pointer;
+  transition:background .15s,color .15s;
+}
+.tab:hover{color:var(--ink)}
+.tab[aria-pressed="true"]{background:var(--label);color:var(--label-ink);border-color:var(--label)}
+.wall{
+  border:1px solid var(--rule-2);border-radius:0 8px 8px 8px;
+  background:rgba(0,0,0,.22);
+  padding:14px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:12px;
+  min-height:420px;
+}
+@media (max-width:980px){.wall{grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px;padding:10px}}
+@media (max-width:480px){.wall{grid-template-columns:repeat(4,1fr);gap:8px;padding:8px}}
+.chip{
+  position:relative;
+  aspect-ratio:5/7;
+  border:0;padding:0;margin:0;
+  border-radius:var(--radius-chip);
+  background:var(--c);
+  cursor:pointer;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  box-shadow:0 1px 2px rgba(0,0,0,.5),0 6px 14px rgba(0,0,0,.35);
+  -webkit-mask:radial-gradient(circle at 13px 13px,transparent 4.5px,#000 5.2px);
+  mask:radial-gradient(circle at 13px 13px,transparent 4.5px,#000 5.2px);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+  overflow:hidden;
+  text-align:left;
+}
+.chip::before{ /* gloss on the coated face */
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(118deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,.06) 32%,rgba(0,0,0,0) 48%,rgba(0,0,0,.16) 100%);
+  pointer-events:none;
+}
+.chip.metal::after{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(100deg,rgba(255,255,255,.07) 0 1px,rgba(0,0,0,.05) 1px 3px);
+  mix-blend-mode:overlay;pointer-events:none;
+}
+.chip.light{box-shadow:inset 0 0 0 1px rgba(0,0,0,.18),0 1px 2px rgba(0,0,0,.5),0 6px 14px rgba(0,0,0,.35)}
+.chip .lbl{
+  position:relative;z-index:1;
+  background:var(--label);color:var(--label-ink);
+  padding:5px 7px 6px;
+  font-family:var(--display);
+  line-height:1.05;
+}
+.chip .code{display:block;font-weight:800;font-size:.98rem;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.chip .name{display:block;font-family:var(--body);font-weight:500;font-size:.68rem;color:var(--label-ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip .slot{
+  position:absolute;top:8px;right:8px;z-index:1;
+  font-family:var(--display);font-weight:800;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--label-ink);color:var(--label);padding:3px 6px 2px;border-radius:3px;
+  opacity:0;transform:translateY(-4px);transition:opacity .25s,transform .25s var(--ease);
+}
+.chip:hover{transform:translateY(-3px);box-shadow:0 2px 3px rgba(0,0,0,.5),0 12px 22px rgba(0,0,0,.45)}
+.chip[data-slot]{transform:translateY(-6px) scale(1.04);z-index:2;box-shadow:0 3px 4px rgba(0,0,0,.55),0 18px 30px rgba(0,0,0,.5)}
+.chip[data-slot] .slot{opacity:1;transform:none}
+.chip[data-slot="accent"] .slot{background:var(--brass-2)}
+.chip:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.deck-note{color:var(--ink-3);font-size:.85rem;margin:10px 6px 0;max-width:none}
+.deck-empty{grid-column:1/-1;align-self:center;text-align:center;color:var(--ink-2);padding:40px 12px}
+
+/* hang tag */
+.tag-wrap{position:sticky;top:64px}
+.tag{
+  position:relative;
+  background:var(--tag);
+  color:var(--tag-ink);
+  border-radius:10px 10px 6px 6px;
+  padding:30px 20px 18px;
+  box-shadow:0 2px 3px rgba(0,0,0,.5),0 18px 34px rgba(0,0,0,.5);
+  clip-path:polygon(0 18px,18px 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%);
+}
+.tag::before{ /* brass eyelet */
+  content:"";position:absolute;top:10px;left:50%;width:18px;height:18px;margin-left:-9px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#e8cf8a 0 2px,var(--brass) 3px 5px,var(--brass-2) 6px 7px,transparent 7.5px),var(--mat);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.4);
+}
+.tag::after{ /* string */
+  content:"";position:absolute;top:-36px;left:50%;width:2px;height:36px;margin-left:-1px;
+  background:linear-gradient(#c9c6bc,#8f8c83);
+}
+.tag h2{font-size:2rem;margin:0 0 4px;color:var(--tag-ink)}
+.tag .lede{font-size:.95rem;color:var(--tag-ink-2);margin:0 0 14px}
+.field{border:0;padding:0;margin:0 0 10px;min-width:0}
+.field legend,.field > label,.lab{
+  display:block;font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;color:var(--tag-ink-2);margin:0 0 4px;padding:0;
+}
+.field select,.field input[type="text"],.field input[type="tel"],.field input[type="email"],.field textarea{
+  width:100%;background:rgba(255,255,255,.55);border:1px solid var(--tag-2);border-bottom-color:var(--brass-2);
+  border-radius:3px;padding:9px 10px;color:var(--tag-ink);
+}
+.field select:focus,.field input:focus,.field textarea:focus{outline:2px solid var(--brass-2);outline-offset:1px;background:#fff}
+.field textarea{min-height:54px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:#6a5c3d}
+.checks{display:grid;gap:4px}
+.checks label{display:flex;align-items:center;gap:8px;font-weight:500;font-size:.98rem;text-transform:none;letter-spacing:0;font-family:var(--body);color:var(--tag-ink);cursor:pointer}
+.checks input{width:17px;height:17px;accent-color:var(--brass-2);margin:0}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.slotbtn{
+  display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;
+  text-align:left;background:rgba(255,255,255,.4);border:1px dashed var(--brass-2);border-radius:5px;padding:7px;cursor:pointer;
+  min-height:62px;transition:background .2s;
+}
+.slotbtn[aria-pressed="true"]{border-style:solid;background:#fff;box-shadow:0 0 0 2px var(--brass-2) inset}
+.slotbtn .sw{
+  width:40px;height:52px;border-radius:4px;background:var(--c,transparent);
+  border:1px dashed var(--brass-2);
+  -webkit-mask:radial-gradient(circle at 8px 8px,transparent 3px,#000 3.6px);mask:radial-gradient(circle at 8px 8px,transparent 3px,#000 3.6px);
+  transition:background .35s var(--ease);
+}
+.slotbtn.filled .sw{border:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.slotbtn .t{display:block;font-family:var(--display);font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--tag-ink-2);line-height:1.1}
+.slotbtn .v{display:block;font-weight:600;font-size:.95rem;line-height:1.15;color:var(--tag-ink);overflow-wrap:anywhere}
+.slotbtn .v small{display:block;font-weight:400;color:var(--tag-ink-2);font-size:.8rem}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:420px){.row2{grid-template-columns:1fr}}
+.file{font-size:.9rem;color:var(--tag-ink)}
+.file input{display:block;width:100%;font-size:.85rem}
+.send{
+  width:100%;margin-top:6px;
+  background:var(--label-ink);color:var(--label);border:0;border-radius:5px;
+  font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:.04em;text-transform:uppercase;
+  padding:13px 16px;cursor:pointer;
+  transition:transform .2s var(--ease),background .2s;
+}
+.send:hover{background:#000;transform:translateY(-1px)}
+.send:disabled{opacity:.6;cursor:default;transform:none}
+.send:focus-visible{outline:2px solid var(--brass-2);outline-offset:3px}
+.fine{font-size:.8rem;color:var(--tag-ink-2);margin:10px 0 0;line-height:1.35}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:4px;font-size:.92rem;line-height:1.35;display:none}
+.msg.err{display:block;background:#fff;color:#8a2a16;border:1px solid var(--err)}
+.msg.ok{display:block;background:#fff;color:var(--tag-ink);border:1px solid var(--brass-2)}
+
+/* mobile sticky bar */
+.bar{
+  display:none;position:fixed;left:0;right:0;bottom:0;z-index:30;
+  background:var(--label);color:var(--label-ink);
+  padding:10px var(--pad);
+  align-items:center;gap:12px;
+  box-shadow:0 -4px 18px rgba(0,0,0,.45);
+}
+.bar .sw{width:30px;height:40px;border-radius:3px;background:var(--c,transparent);border:1px dashed var(--label-ink-2);flex:none}
+.bar.filled .sw{border:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.bar .v{font-weight:600;font-size:.95rem;line-height:1.15;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar a{flex:none;background:var(--label-ink);color:var(--label);text-decoration:none;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:9px 14px;border-radius:4px}
+@media (max-width:980px){.bar{display:flex}.tag-wrap{position:static}body{padding-bottom:70px}}
+
+/* sections */
+section.s{padding-top:80px;padding-bottom:80px;padding-left:var(--pad);padding-right:var(--pad);border-top:1px solid var(--rule-2)}
+@media (max-width:760px){section.s{padding-top:52px;padding-bottom:52px}}
+.s .in{max-width:1180px;margin:0 auto}
+.lede{color:var(--ink-2);font-size:1.1rem}
+
+/* services: the back of the chip */
+.spec{width:100%;border-collapse:collapse;margin-top:28px;font-size:1rem}
+.spec th,.spec td{text-align:left;vertical-align:top;padding:16px 18px 16px 0;border-top:1px solid var(--rule-2)}
+.spec thead th{border-top:0;padding-top:0;font-family:var(--display);font-weight:800;font-size:1.9rem;line-height:1;letter-spacing:.01em}
+.spec thead th small{display:block;font-family:var(--body);font-weight:500;font-size:.9rem;color:var(--ink-2);margin-top:6px;letter-spacing:0}
+.spec tbody th{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);width:11ch;padding-right:12px}
+.spec td{color:var(--ink);max-width:34ch}
+.spec td p{margin:0}
+@media (max-width:760px){
+  .spec,.spec thead,.spec tbody,.spec tr,.spec th,.spec td{display:block}
+  .spec thead{display:none}
+  .spec tr{border-top:1px solid var(--rule-2);padding:16px 0}
+  .spec td,.spec th{border:0;padding:4px 0;width:auto;max-width:none}
+  .spec td::before{content:attr(data-h);display:block;font-family:var(--display);font-weight:800;font-size:1.3rem;margin:8px 0 2px}
+  .spec tbody th{padding-top:10px}
+}
+
+/* items as label strips */
+.strips{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;max-width:900px}
+.strip{
+  background:var(--label);color:var(--label-ink);border-radius:4px;padding:8px 12px 9px;
+  font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:.02em;
+  box-shadow:0 1px 2px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.3);
+}
+.strip small{display:block;font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--label-ink-2);letter-spacing:0;margin-top:2px}
+
+/* pairings */
+.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:28px}
+.pair{
+  display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center;
+  background:transparent;border:1px solid var(--rule-2);border-radius:8px;padding:12px;
+  text-align:left;cursor:pointer;color:var(--ink);
+  transition:border-color .2s,transform .3s var(--ease);
+}
+.pair:hover{border-color:var(--ink-3);transform:translateY(-2px)}
+.pair .two{
+  width:72px;height:96px;border-radius:6px;overflow:hidden;position:relative;
+  background:linear-gradient(135deg,var(--a) 0 58%,var(--b) 58% 100%);
+  box-shadow:0 1px 2px rgba(0,0,0,.5),0 6px 14px rgba(0,0,0,.35);
+  -webkit-mask:radial-gradient(circle at 11px 11px,transparent 4px,#000 4.6px);mask:radial-gradient(circle at 11px 11px,transparent 4px,#000 4.6px);
+}
+.pair .two::before{content:"";position:absolute;inset:0;background:linear-gradient(118deg,rgba(255,255,255,.2),rgba(255,255,255,0) 45%,rgba(0,0,0,.14))}
+.pair .on{display:block;font-family:var(--display);font-weight:700;font-size:1.15rem;line-height:1.05}
+.pair .codes{display:block;font-size:.85rem;color:var(--ink-2);font-variant-numeric:tabular-nums;margin-top:4px}
+.pair .codes b{color:var(--ink);font-weight:600}
+.stamp{
+  display:inline-block;margin-left:12px;vertical-align:middle;
+  font-family:var(--display);font-weight:800;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--err);border:2px solid var(--err);padding:3px 7px 2px;border-radius:3px;transform:rotate(-4deg);
+}
+
+/* steps */
+.steps{list-style:none;margin:28px 0 0 -24px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0}
+.steps li{padding:24px;position:relative;border-top:1px solid var(--rule-2)}
+.steps li + li{border-left:1px solid var(--rule-2)}
+@media (max-width:760px){.steps{grid-template-columns:1fr;margin-left:-16px;margin-right:-16px}.steps li{padding:22px 16px}.steps li + li{border-left:0}}
+.steps .n{font-family:var(--display);font-weight:800;font-size:2.6rem;line-height:1;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.steps h3{margin:8px 0 6px}
+.steps p{color:var(--ink-2);margin:0;font-size:.98rem}
+
+/* sister + find us */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);align-items:start}
+@media (max-width:760px){.split{grid-template-columns:1fr}}
+.find dl{margin:20px 0 0;display:grid;grid-template-columns:auto 1fr;gap:8px 18px}
+.find dt{font-family:var(--display);font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);font-size:.95rem;padding-top:3px}
+.find dd{margin:0}
+.sister{border:1px solid var(--rule-2);border-radius:8px;padding:22px 24px}
+.sister h3{font-size:1.9rem}
+.sister p{color:var(--ink-2)}
+.sister a.btn{display:inline-block;margin-top:6px;background:var(--label);color:var(--label-ink);text-decoration:none;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:9px 14px;border-radius:4px}
+.sister a.btn:hover{background:#fff}
+
+footer{padding:36px var(--pad) 48px;border-top:1px solid var(--rule-2);color:var(--ink-3);font-size:.88rem}
+footer .in{max-width:1180px;margin:0 auto;display:grid;gap:8px}
+footer p{max-width:80ch;margin:0}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Site">
+  <a class="brand" href="#top">Tacti-Cool <span>Coatings</span></a>
+  <ul>
+    <li><a href="#finishes">Finishes</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#items">What we coat</a></li>
+    <li><a href="#how">How a job goes</a></li>
+    <li><a href="#find">Find us</a></li>
+  </ul>
+  <a class="cta" href="#quote">Quote tag</a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-left">
+  <div class="hero-head">
+    <h1>Pick the finish. We'll quote the job.</h1>
+    <p class="sub"><b>Tacti-Cool Coatings</b> is a Cerakote certified applicator in the Chickasha, Oklahoma area. Cerakote, powder coat, and laser engraving on firearms, knives, optics, and parts. Tap a chip to start your quote tag.</p>
+  </div>
+
+  <div class="deck" id="finishes">
+    <div class="tabs" id="tabs" aria-label="Color families"></div>
+    <div class="wall" id="wall" aria-live="polite"></div>
+    <p class="deck-note">Names and H-codes are Cerakote H-Series catalog colors. Screen colors are approximations; see the real chip at the counter before you commit.</p>
+  </div>
+  </div>
+
+  <div class="tag-wrap" id="quote">
+    <form class="tag" id="form" novalidate>
+      <h2>Quote tag</h2>
+      <p class="lede">Fill the tag, we reply with price and turnaround.</p>
+
+      <div class="field">
+        <label for="item">Item</label>
+        <select id="item" name="item" required>
+          <option value="">What are we coating?</option>
+          <option>Pistol slide</option>
+          <option>Complete pistol</option>
+          <option>Rifle or AR upper / lower</option>
+          <option>Shotgun</option>
+          <option>Barrel or handguard</option>
+          <option>Knife</option>
+          <option>Optic or mount</option>
+          <option>Automotive or motorcycle part</option>
+          <option>Tool or other hard good</option>
+        </select>
+      </div>
+
+      <fieldset class="field">
+        <legend>Service</legend>
+        <div class="checks">
+          <label><input type="checkbox" name="svc" value="Cerakote" checked> Cerakote</label>
+          <label><input type="checkbox" name="svc" value="Powder coat"> Powder coat</label>
+          <label><input type="checkbox" name="svc" value="Laser engraving"> Laser engraving</label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <span class="lab" id="slots-lab">Finish, from the chips</span>
+        <div class="slots" role="group" aria-labelledby="slots-lab">
+          <button type="button" class="slotbtn" id="slot-finish" aria-pressed="true" data-slot="finish">
+            <span class="sw" aria-hidden="true"></span>
+            <span><span class="t">Finish</span><span class="v" id="finish-v">Tap a chip</span></span>
+          </button>
+          <button type="button" class="slotbtn" id="slot-accent" aria-pressed="false" data-slot="accent">
+            <span class="sw" aria-hidden="true"></span>
+            <span><span class="t">Accent</span><span class="v" id="accent-v">Optional second chip</span></span>
+          </button>
+        </div>
+        <input type="hidden" name="finish" id="finish">
+        <input type="hidden" name="accent" id="accent">
+      </div>
+
+      <div class="field">
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes" placeholder="Pattern, parts to leave bare, engraving text, deadline"></textarea>
+      </div>
+
+      <div class="field file">
+        <label for="photos">Photos of the item</label>
+        <input id="photos" name="photos" type="file" accept="image/*" multiple>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="contact">Phone or email</label>
+          <input id="contact" name="contact" type="text" autocomplete="tel email" inputmode="email" required>
+        </div>
+      </div>
+
+      <button class="send" type="submit">Send for a quote</button>
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+      <p class="fine">Demo build: this tag is not connected to the shop yet. No price or turnaround is promised until the shop replies.</p>
+    </form>
+  </div>
+</header>
+
+<div class="bar" id="bar" aria-hidden="true">
+  <span class="sw"></span>
+  <span class="v" id="bar-v">No finish picked yet</span>
+  <a href="#quote">Quote this finish</a>
+</div>
+
+<section class="s" id="services">
+  <div class="in">
+    <h2>Three ways to finish it</h2>
+    <p class="lede">One shop, three processes. Most firearm work is Cerakote. Big or heavy parts lean powder coat. Engraving goes on before or after either.</p>
+    <table class="spec">
+      <thead>
+        <tr>
+          <th scope="col"><span class="vh">Property</span></th>
+          <th scope="col">Cerakote<small>Ceramic thin-film coating, oven cured</small></th>
+          <th scope="col">Powder coat<small>Electrostatic powder, baked to a shell</small></th>
+          <th scope="col">Laser engraving<small>Marks cut into the surface</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Best for</th>
+          <td data-h="Cerakote"><p>Slides, frames, receivers, barrels, handguards, optics, and knives, where the finish has to stay thin so parts still fit.</p></td>
+          <td data-h="Powder coat"><p>Brackets, mounts, wheels, valve covers, frames, tools, and other steel or aluminum parts that take a thicker shell.</p></td>
+          <td data-h="Laser engraving"><p>Logos, text, and line art on slides, magazines, knife blades, and plates. Fill it with a second color or leave it bare.</p></td>
+        </tr>
+        <tr>
+          <th scope="row">Color</th>
+          <td data-h="Cerakote"><p>Any chip in the wall above, solid or two-tone. Patterns and camo quoted from your notes.</p></td>
+          <td data-h="Powder coat"><p>Solid colors, textures, and metallics from the powder range. Ask for a match to a chip.</p></td>
+          <td data-h="Laser engraving"><p>No color on its own. Pairs with a finish for contrast.</p></td>
+        </tr>
+        <tr>
+          <th scope="row">Prep</th>
+          <td data-h="Cerakote"><p>Full disassembly, strip, media blast, mask, coat, cure.</p></td>
+          <td data-h="Powder coat"><p>Strip, blast, mask threads and mating faces, coat, bake.</p></td>
+          <td data-h="Laser engraving"><p>Send the artwork or text. We proof it before it goes on.</p></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="s" id="items">
+  <div class="in">
+    <h2>What we hang on the rack</h2>
+    <p class="lede">Firearms are most of the work. They are not all of it. If it is metal or polymer and fits in the oven, ask.</p>
+    <div class="strips">
+      <span class="strip">Pistol slides<small>full or two-tone</small></span>
+      <span class="strip">Frames and receivers<small>polymer and aluminum</small></span>
+      <span class="strip">AR uppers and lowers<small>complete builds too</small></span>
+      <span class="strip">Barrels and handguards</span>
+      <span class="strip">Shotguns</span>
+      <span class="strip">Optics and mounts</span>
+      <span class="strip">Knives<small>blades and scales</small></span>
+      <span class="strip">Magazines</span>
+      <span class="strip">Automotive and motorcycle parts<small>powder coat</small></span>
+      <span class="strip">Tools and hardware</span>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="pairings">
+  <div class="in">
+    <h2>Two-tone pairings that work <span class="stamp">Sample pairings</span></h2>
+    <p class="lede">Not customer jobs. These are combinations the shop reaches for; tap one to drop both chips onto your tag.</p>
+    <div class="pairs" id="pairs"></div>
+  </div>
+</section>
+
+<section class="s" id="how">
+  <div class="in">
+    <h2>How a job goes</h2>
+    <ol class="steps">
+      <li><span class="n">1</span><h3>Send the tag</h3><p>Item, finish, photos. We reply with a price and a turnaround for that job, not a chart.</p></li>
+      <li><span class="n">2</span><h3>Bring it in</h3><p>Drop the item at the shop. Ask us about shipping before you send anything.</p></li>
+      <li><span class="n">3</span><h3>Strip, blast, mask, coat, cure</h3><p>Every part comes apart, gets blasted clean, masked where it mates, coated, and baked.</p></li>
+      <li><span class="n">4</span><h3>Pick it up</h3><p>Reassembled and function checked. We call when it is on the shelf.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" id="find">
+  <div class="in split">
+    <div class="find">
+      <h2>Find us</h2>
+      <p class="lede">A separate shop from the gun store, run by the same crew.</p>
+      <dl>
+        <dt>Address</dt><dd><span class="ph">Street address, City, OK ZIP</span></dd>
+        <dt>Hours</dt><dd><span class="ph">Days and hours</span></dd>
+        <dt>Phone</dt><dd><span class="ph">Shop phone</span></dd>
+        <dt>Email</dt><dd><span class="ph">Shop email</span></dd>
+      </dl>
+    </div>
+    <div class="sister">
+      <h3>Need the gun store?</h3>
+      <p>Guns, ammo, gear, and gunsmithing are at Tacti-Cool Gun in Chickasha. Coatings is the sister shop at its own address.</p>
+      <a class="btn" href="https://tacticoolgun.com">tacticoolgun.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="in">
+    <p>Tacti-Cool Coatings. Cerakote is a registered trademark of NIC Industries; this shop is an applicator, not the manufacturer. Color names and H-codes come from Cerakote's published H-Series catalog and on-screen colors are approximations.</p>
+    <p>Demo redesign. Address, hours, and contact are placeholders; pairings are samples, not customer work.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var FAM={black:"Blacks & whites",earth:"Earths",grey:"Greys",green:"Greens",red:"Reds & pinks",blue:"Blues & purples",metal:"Metallics"};
+  var CHIPS=[
+    ["H-146","Graphite Black","#202124","black"],
+    ["H-190","Armor Black","#151517","black"],
+    ["H-297","Stormtrooper White","#ebe9e4","black","light"],
+    ["H-140","Bright White","#f4f3ee","black","light"],
+    ["H-265","Flat Dark Earth","#7d6b4e","earth"],
+    ["H-267","Magpul FDE","#9b8a65","earth"],
+    ["H-235","Coyote Tan","#b59f73","earth"],
+    ["H-199","Desert Sand","#c8ba93","earth","light"],
+    ["H-226","Patriot Brown","#5a4634","earth"],
+    ["H-258","Chocolate Brown","#4a3627","earth"],
+    ["H-234","Sniper Grey","#6b7271","grey"],
+    ["H-227","Tactical Grey","#8e918c","grey"],
+    ["H-237","Tungsten","#5d6062","grey"],
+    ["H-214","Smith & Wesson Grey","#52565a","grey"],
+    ["H-345","Magpul Stealth Grey","#5b6064","grey"],
+    ["H-210","Sig Dark Grey","#45484b","grey"],
+    ["H-236","O.D. Green","#515b3f","green"],
+    ["H-240","Mil Spec Green","#5b6a3c","green"],
+    ["H-232","Magpul O.D. Green","#4e5a3a","green"],
+    ["H-189","Noveske Bazooka Green","#6a7a4a","green"],
+    ["H-200","Highland Green","#3f5a44","green"],
+    ["H-168","Zombie Green","#78b83a","green"],
+    ["H-167","USMC Red","#a3181f","red"],
+    ["H-216","Smith & Wesson Red","#b81c22","red"],
+    ["H-139","Crimson","#9a1d2f","red"],
+    ["H-243","Safety Orange","#f2631f","red"],
+    ["H-128","Hunter Orange","#ef5a18","red"],
+    ["H-141","Prison Pink","#f4a4c4","red","light"],
+    ["H-224","Sig Pink","#e86fa3","red"],
+    ["H-171","NRA Blue","#1e3f74","blue"],
+    ["H-127","Kel-Tec Navy Blue","#1f2b47","blue"],
+    ["H-112","Cobalt","#2d4f9e","blue"],
+    ["H-169","Sky Blue","#4a9fd6","blue"],
+    ["H-175","Robin's Egg Blue","#86c7cd","blue","light"],
+    ["H-217","Bright Purple","#6d3b9c","blue"],
+    ["H-148","Burnt Bronze","#6f4f2f","metal"],
+    ["H-294","Midnight Bronze","#4b3b2e","metal"],
+    ["H-259","Barrett Bronze","#7a5f3f","metal"],
+    ["H-122","Gold","#c9a24a","metal"],
+    ["H-170","Titanium","#8a8c8f","metal"],
+    ["H-185","Blue Titanium","#5f7f9a","metal"],
+    ["H-151","Satin Aluminum","#b7b9bb","metal","light"],
+    ["H-157","Bright Nickel","#c9cbce","metal","light"]
+  ];
+  var PAIRS=[
+    ["Slide and frame","H-234","H-146"],
+    ["Classic FDE build","H-265","H-190"],
+    ["Bronze over black","H-148","H-146"],
+    ["Field rifle","H-236","H-235"],
+    ["White slide, black frame","H-297","H-146"],
+    ["Blue over bare aluminum look","H-171","H-151"]
+  ];
+  var byCode={};CHIPS.forEach(function(c){byCode[c[0]]=c});
+
+  var wall=document.getElementById("wall"),tabs=document.getElementById("tabs"),pairs=document.getElementById("pairs");
+  var state={finish:null,accent:null,active:"finish",fam:"all"};
+
+  function chipEl(c){
+    var b=document.createElement("button");
+    b.type="button";b.className="chip"+(c[4]==="light"?" light":"")+(c[3]==="metal"?" metal":"");
+    b.style.setProperty("--c",c[2]);b.dataset.code=c[0];b.dataset.fam=c[3];
+    b.setAttribute("aria-label",c[0]+" "+c[1]);
+    b.setAttribute("aria-pressed","false");
+    b.innerHTML='<span class="slot" aria-hidden="true"></span><span class="lbl"><span class="code">'+c[0]+'</span><span class="name">'+c[1]+'</span></span>';
+    b.addEventListener("click",function(){pick(c[0])});
+    return b;
+  }
+  function renderTabs(){
+    var all=["all"].concat(Object.keys(FAM));
+    all.forEach(function(k){
+      var t=document.createElement("button");t.type="button";t.className="tab";
+      t.textContent=k==="all"?"All "+CHIPS.length:FAM[k];t.dataset.fam=k;
+      t.setAttribute("aria-pressed",String(k===state.fam));
+      t.addEventListener("click",function(){state.fam=k;renderTabs();renderWall()});
+      tabs.appendChild(t);
+    });
+    while(tabs.children.length>all.length)tabs.removeChild(tabs.firstChild);
+  }
+  function renderWall(){
+    wall.innerHTML="";
+    var n=0;
+    CHIPS.forEach(function(c){
+      if(state.fam!=="all"&&c[3]!==state.fam)return;
+      wall.appendChild(chipEl(c));n++;
+    });
+    if(!n){var e=document.createElement("p");e.className="deck-empty";e.textContent="No chips in this family yet.";wall.appendChild(e)}
+    paint();
+  }
+  function paint(){
+    Array.prototype.forEach.call(wall.querySelectorAll(".chip"),function(b){
+      var code=b.dataset.code,slot=code===state.finish?"finish":code===state.accent?"accent":null;
+      if(slot){b.dataset.slot=slot;b.querySelector(".slot").textContent=slot;b.setAttribute("aria-pressed","true")}
+      else{delete b.dataset.slot;b.querySelector(".slot").textContent="";b.setAttribute("aria-pressed","false")}
+    });
+    var fs=document.getElementById("slot-finish"),as=document.getElementById("slot-accent");
+    setSlot(fs,state.finish,"Tap a chip");
+    setSlot(as,state.accent,"Optional second chip");
+    fs.setAttribute("aria-pressed",String(state.active==="finish"));
+    as.setAttribute("aria-pressed",String(state.active==="accent"));
+    document.getElementById("finish").value=state.finish||"";
+    document.getElementById("accent").value=state.accent||"";
+    var bar=document.getElementById("bar"),bv=document.getElementById("bar-v");
+    if(state.finish){var c=byCode[state.finish];bar.classList.add("filled");bar.style.setProperty("--c",c[2]);bv.textContent=c[0]+" "+c[1]+(state.accent?" + "+state.accent:"");}
+    else{bar.classList.remove("filled");bar.style.removeProperty("--c");bv.textContent="No finish picked yet";}
+  }
+  function setSlot(el,code,empty){
+    var v=el.querySelector(".v");
+    if(code){var c=byCode[code];el.classList.add("filled");el.style.setProperty("--c",c[2]);v.innerHTML=c[0]+"<small>"+c[1]+"</small>";}
+    else{el.classList.remove("filled");el.style.removeProperty("--c");v.textContent=empty;}
+  }
+  function pick(code){
+    if(state.active==="finish"){
+      state.finish=(state.finish===code)?null:code;
+      if(state.finish&&state.accent===code)state.accent=null;
+      if(state.finish)state.active="accent";
+    }else{
+      state.accent=(state.accent===code)?null:code;
+      if(state.accent&&state.finish===code){state.finish=null;}
+    }
+    paint();
+    var m=document.getElementById("msg");if(m.classList.contains("err")&&state.finish){m.className="msg";m.textContent="";}
+  }
+  document.getElementById("slot-finish").addEventListener("click",function(){state.active="finish";paint()});
+  document.getElementById("slot-accent").addEventListener("click",function(){state.active="accent";paint()});
+
+  PAIRS.forEach(function(p){
+    var a=byCode[p[1]],b=byCode[p[2]];
+    var el=document.createElement("button");el.type="button";el.className="pair";
+    el.style.setProperty("--a",a[2]);el.style.setProperty("--b",b[2]);
+    el.innerHTML='<span class="two" aria-hidden="true"></span><span><span class="on">'+p[0]+'</span><span class="codes"><b>'+a[0]+'</b> '+a[1]+' over <b>'+b[0]+'</b> '+b[1]+'</span></span>';
+    el.setAttribute("aria-label",p[0]+": "+a[0]+" "+a[1]+" with "+b[0]+" "+b[1]+". Put both on the quote tag.");
+    el.addEventListener("click",function(){state.finish=a[0];state.accent=b[0];state.active="accent";state.fam="all";renderTabs();renderWall();document.getElementById("quote").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})});
+    pairs.appendChild(el);
+  });
+
+  document.getElementById("form").addEventListener("submit",function(e){
+    e.preventDefault();
+    var m=document.getElementById("msg");
+    var item=document.getElementById("item").value,name=document.getElementById("name").value.trim(),contact=document.getElementById("contact").value.trim();
+    var svc=Array.prototype.filter.call(document.querySelectorAll('input[name="svc"]'),function(i){return i.checked}).map(function(i){return i.value});
+    var missing=[];
+    if(!item)missing.push("the item");
+    if(!svc.length)missing.push("at least one service");
+    if(!state.finish&&svc.indexOf("Cerakote")>-1)missing.push("a finish chip");
+    if(!name)missing.push("your name");
+    if(!contact)missing.push("a phone or email");
+    if(missing.length){m.className="msg err";m.textContent="The tag is missing "+missing.join(", ")+". Add it and send again.";return;}
+    var f=byCode[state.finish],a=byCode[state.accent];
+    m.className="msg ok";
+    m.textContent="Demo only. In the live site this tag goes to the shop: "+item+", "+svc.join(" + ")+(f?", "+f[0]+" "+f[1]:"")+(a?" with "+a[0]+" "+a[1]:"")+", for "+name+".";
+  });
+
+  renderTabs();renderWall();
+  // preselect nothing: the wall is the first field.
+})();
+</script>
+</body>
+</html>
