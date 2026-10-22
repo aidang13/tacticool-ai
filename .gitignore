@@ -5,3 +5,5 @@ __pycache__/
 products.json
 .DS_Store
 venv/
+*.sqlite3
+.pytest_cache/

@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
@@ -5,8 +6,12 @@ from pydantic import BaseModel
 from openai import OpenAI
 import os
 import re
+import threading
 import time
 import requests as req_lib
+
+from ffl.runtime import get_runtime
+from ffl.webhooks import router as ffl_router
 
 # ── WooCommerce config ────────────────────────────────────────────────────────
 WOO_URL = os.environ.get("WOO_URL", "")
@@ -79,8 +84,52 @@ def format_product_context(products: list) -> str:
     return "\n".join(lines)
 
 
+# ── Clover + FastBound glue (see docs/CLOVER_FASTBOUND_SETUP.md) ──────────────
+_poller_stop = threading.Event()
+
+
+def _order_poller():
+    rt = get_runtime()
+    interval = rt.settings.poll_seconds
+    while not _poller_stop.wait(interval):
+        try:
+            rt.sync.poll_orders()
+        except Exception as e:  # keep the loop alive; the failure is flagged in the store
+            print(f"[ffl] poll error: {e}")
+
+
+def _mount_mcp(app: FastAPI):
+    rt = get_runtime()
+    secret = rt.settings.mcp_secret
+    if not secret:
+        return None
+    from mcp.server.transport_security import TransportSecuritySettings
+    from ffl.mcp_server import mcp
+    sub = mcp.streamable_http_app(
+        streamable_http_path="/", stateless_http=True, json_response=True,
+        transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
+    )
+    app.mount(f"/mcp/{secret}", sub)
+    return mcp
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    rt = get_runtime()
+    if rt.settings.poll_seconds and rt.clover and rt.fb:
+        threading.Thread(target=_order_poller, name="ffl-order-poller", daemon=True).start()
+    if _mcp is not None:
+        async with _mcp.session_manager.run():
+            yield
+    else:
+        yield
+    _poller_stop.set()
+
+
 # ── App setup ─────────────────────────────────────────────────────────────────
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
+app.include_router(ffl_router)
+_mcp = _mount_mcp(app)
 
 app.add_middleware(
     CORSMiddleware,
@@ -149,7 +198,15 @@ async def chat(req: ChatRequest):
 @app.get("/health")
 async def health():
     woo_ok = bool(WOO_URL and WOO_KEY and WOO_SECRET)
-    return {"status": "ok", "woo_configured": woo_ok, "cache_entries": len(_search_cache)}
+    rt = get_runtime()
+    return {
+        "status": "ok",
+        "woo_configured": woo_ok,
+        "cache_entries": len(_search_cache),
+        "fastbound_configured": rt.settings.fastbound_configured,
+        "clover_configured": rt.clover is not None,
+        "ffl_attention": len(rt.store.open_flags()),
+    }
 
 
 WIDGET_JS = r"""
